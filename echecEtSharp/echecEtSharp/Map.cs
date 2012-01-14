@@ -9,7 +9,7 @@ namespace echecEtSharp
 {
     class Map
     {
-        private int[,] map = new int[,] 
+        private int[,] mapArray = new int[,] 
         {
             {0,1,0,1,0,1,0,1},
             {1,0,1,0,1,0,1,0},
@@ -23,12 +23,12 @@ namespace echecEtSharp
 
         private List<Texture2D> tileTextures;
         private SpriteFont font;
-        private String[] alpha;
+        private List<String> alpha;
 
         public Map()
         {
             tileTextures = new List<Texture2D>();
-            alpha = new String[] { "a", "b", "c", "d", "e", "f", "g", "h" };
+            alpha = new List<String>() { "a", "b", "c", "d", "e", "f", "g", "h" };
         }
 
         public void AddFont(SpriteFont newFont)
@@ -43,11 +43,16 @@ namespace echecEtSharp
 
         public int Width
         {
-            get { return map.GetLength(1); }
+            get { return mapArray.GetLength(1); }
         }
         public int Height
         {
-            get { return map.GetLength(0); }
+            get { return mapArray.GetLength(0); }
+        }
+
+        public int getIndex(String c, int i)
+        {
+            return mapArray[alpha.IndexOf(c), i];
         }
 
         public void Draw(SpriteBatch batch)
@@ -71,7 +76,7 @@ namespace echecEtSharp
                 {
                     if (y == 8)
                     {
-                        batch.DrawString(font, alpha[rowLetterDown], new Vector2(70 + x * 50, 20 + 9 * 50), Color.Black);
+                        batch.DrawString(font, alpha.ElementAt(rowLetterDown), new Vector2(70 + x * 50, 20 + 9 * 50), Color.Black);
                         rowLetterDown++;
                     }
                     else if (y < Height)
@@ -79,11 +84,11 @@ namespace echecEtSharp
 
                         if (y == 0)
                         {
-                            batch.DrawString(font, alpha[rowLetterTop], new Vector2(70 + x * 50, 20 + y * 50), Color.Black);
+                            batch.DrawString(font, alpha.ElementAt(rowLetterTop), new Vector2(70 + x * 50, 20 + y * 50), Color.Black);
                             rowLetterTop++;
                         }
 
-                        int textureIndex = map[y, x];
+                        int textureIndex = mapArray[y, x];
                         if (textureIndex == -1)
                             continue;
 

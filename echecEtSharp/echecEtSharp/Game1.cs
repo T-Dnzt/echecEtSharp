@@ -28,7 +28,7 @@ namespace echecEtSharp
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 500;
             graphics.PreferredBackBufferHeight = 650;
-            IsMouseVisible = false;
+            IsMouseVisible = true;
 
             Map = new Map();
         }
