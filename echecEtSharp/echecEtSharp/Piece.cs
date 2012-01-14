@@ -5,13 +5,13 @@ using System.Text;
 
 namespace echecEtSharp
 {
-    interface Piece
+    class Piece
     {
-        abstract Piece()
+        public Piece()
         {
 
         }
-        abstract void move()
+        public void move()
         {
 
         }
