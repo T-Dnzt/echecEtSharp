@@ -1,0 +1,18 @@
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\white.xnb
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\grey.xnb
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\Arial.xnb
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\echecEtSharp.exe
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\echecEtSharp.pdb
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.exe
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.pdb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\white.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\grey.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\Arial.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\echecEtSharp.exe
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\echecEtSharp.pdb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.exe
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.pdb

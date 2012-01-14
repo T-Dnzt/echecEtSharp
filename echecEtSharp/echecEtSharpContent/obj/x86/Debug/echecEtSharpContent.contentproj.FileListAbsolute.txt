@@ -1,0 +1,2 @@
+c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtSharp\echecEtSharpContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharpContent\obj\x86\Debug\ResolveAssemblyReference.cache
