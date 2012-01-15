@@ -44,7 +44,7 @@ namespace echecEtSharp
             this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
-        public void move()
+        public void canMoveThisWay()
         {
 
         }

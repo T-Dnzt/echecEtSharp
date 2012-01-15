@@ -67,7 +67,7 @@ namespace echecEtSharp
             map.AddFont(font);
 
             Texture2D pawnTexture = Content.Load<Texture2D>("pawn");
-            Vector2 lol = new Vector2(150,150);
+            Vector2 lol = new Vector2(50,100);
             Vector2 behave = new Vector2(1, 1);
 
             pawn = new Pawn(pawnTexture, lol, behave, false, 1, false); 
@@ -98,6 +98,26 @@ namespace echecEtSharp
 
             base.Update(gameTime);
         }
+
+      /*  protected void UpdatePlayer(GameTime gameTime)
+        {
+            MouseState mouseStateCurrent, mouseStatePrevious;
+
+            mouseStateCurrent = Mouse.GetState();
+
+             if (mouseStateCurrent.LeftButton == ButtonState.Pressed &&
+                 mouseStateCurrent.X < center.X + texture.Width / 2 &&
+                 mouseStateCurrent.X > center.X - texture.Width / 2 &&
+                 mouseStateCurrent.Y < center.Y + texture.Height / 2 &&
+                 mouseStateCurrent.Y > center.Y - texture.Height / 2)
+             {
+
+             }
+
+            Console.WriteLine("fu");
+
+            mouseStatePrevious = mouseStateCurrent;
+        }*/
 
         /// <summary>
         /// This is called when the game should draw itself.
