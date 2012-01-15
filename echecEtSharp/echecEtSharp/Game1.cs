@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using echecEtSharp.Pieces;
 
 namespace echecEtSharp
 {
@@ -18,8 +19,9 @@ namespace echecEtSharp
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Map Map;
+        Map map;
         SpriteFont font;
+        Pawn pawn;
 
         public Game1()
         {
@@ -30,7 +32,7 @@ namespace echecEtSharp
             graphics.PreferredBackBufferHeight = 650;
             IsMouseVisible = true;
 
-            Map = new Map();
+            map = new Map();
         }
 
         /// <summary>
@@ -58,11 +60,17 @@ namespace echecEtSharp
             // TODO: use this.Content to load your game content here
             Texture2D whiteC = Content.Load<Texture2D>("white");
             Texture2D greyC = Content.Load<Texture2D>("grey");
-            Map.AddTexture(whiteC);
-            Map.AddTexture(greyC);
+            map.AddTexture(whiteC);
+            map.AddTexture(greyC);
 
             font = Content.Load<SpriteFont>("Arial");
-            Map.AddFont(font);
+            map.AddFont(font);
+
+            Texture2D pawnTexture = Content.Load<Texture2D>("pawn");
+            Vector2 lol = new Vector2(150,150);
+            Vector2 behave = new Vector2(1, 1);
+
+            pawn = new Pawn(pawnTexture, lol, behave, false, 1, false); 
         }
 
         /// <summary>
@@ -86,6 +94,7 @@ namespace echecEtSharp
                 this.Exit();
 
             // TODO: Add your update logic here
+            pawn.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -100,8 +109,8 @@ namespace echecEtSharp
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            Map.Draw(spriteBatch);
-
+            map.Draw(spriteBatch);
+            pawn.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

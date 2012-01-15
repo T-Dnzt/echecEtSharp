@@ -16,3 +16,4 @@ C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x8
 C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.exe
 C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.pdb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\pawn.xnb

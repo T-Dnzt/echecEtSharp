@@ -2,11 +2,26 @@
 using System.Collections;
 using System.Linq;
 using System.Text;
+using echecEtSharp.Pieces;
 
 namespace echecEtSharp
 {
     class Player
     {
-        
+        private King king;
+        private Queen queen;
+        private Rook[] rooks;
+        private Knight[] knights;
+        private Bishop[] bishops;
+        private Pawn[] pawns;
+
+        private Boolean turnToPlay;
+
+        public Player()
+        {
+           
+        }
+
+
     }
 }
