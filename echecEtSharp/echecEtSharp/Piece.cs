@@ -16,6 +16,11 @@ namespace echecEtSharp
         protected Vector2 center;
         protected Vector2 origin;
         protected Vector2 behavior;
+
+        protected Rectangle bounds;
+        protected int width;
+        protected int height;
+
         protected float rotation;
 
         protected Boolean isWhite;
@@ -40,19 +45,17 @@ namespace echecEtSharp
 
             this.speed = 0.5f;
             this.velocity = Vector2.Zero;
+           
+            this.width = texture.Width;
+            this.height = texture.Height;
+            
+            this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
+
             this.center = new Vector2(position.X + texture.Width / 2, position.Y + texture.Height / 2);
             this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
-        public void canMoveThisWay()
-        {
 
-        }
-
-        public void die()
-        {
-
-        }
 
         public virtual void Update(GameTime gameTime)
         {
@@ -64,7 +67,7 @@ namespace echecEtSharp
             spriteBatch.Draw(texture, center, null, Color.White, rotation, origin, 1.0f, SpriteEffects.None, 0);
         }
 
-        protected Vector2 Position
+        public Vector2 Position
         {
             get { return position; }
             set { position = value; }
@@ -80,6 +83,11 @@ namespace echecEtSharp
         {
             get { return behavior; }
             set { behavior = value; }
+        }
+
+        public Texture2D Texture
+        {
+            get { return texture; }
         }
 
     }

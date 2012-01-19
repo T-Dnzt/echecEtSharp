@@ -16,7 +16,8 @@ namespace echecEtSharp
         private Knight[] knights;
         private Bishop[] bishops;
         private Pawn[] pawns;
-        
+
+        public List<Piece> pieces;
         private Boolean turnToPlay;
 
         public Player()

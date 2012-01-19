@@ -15,6 +15,7 @@ namespace echecEtSharp
     /// <summary>
     /// This is the main type for your game
     /// </summary>
+
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
@@ -22,6 +23,10 @@ namespace echecEtSharp
         Map map;
         SpriteFont font;
         Pawn pawn;
+        Piece selectedPiece;
+
+        MouseState mouseState;
+        MouseState oldState;
 
         public Game1()
         {
@@ -60,17 +65,19 @@ namespace echecEtSharp
             // TODO: use this.Content to load your game content here
             Texture2D whiteC = Content.Load<Texture2D>("white");
             Texture2D greyC = Content.Load<Texture2D>("grey");
+            Texture2D blueC = Content.Load<Texture2D>("blue");
+
             map.AddTexture(whiteC);
             map.AddTexture(greyC);
+            map.AddTexture(blueC);
 
             font = Content.Load<SpriteFont>("Arial");
             map.AddFont(font);
 
-            Texture2D pawnTexture = Content.Load<Texture2D>("pawn");
-            Vector2 lol = new Vector2(50,100);
-            Vector2 behave = new Vector2(1, 1);
-
-            pawn = new Pawn(pawnTexture, lol, behave, false, 1, false); 
+           // Texture2D pawnTexture = Content.Load<Texture2D>("pawn");
+         
+           // pawn = new Pawn(pawnTexture, lol, behave, false, 1, false); 
+            
         }
 
         /// <summary>
@@ -93,31 +100,34 @@ namespace echecEtSharp
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
-            pawn.Update(gameTime);
+            mouseState = Mouse.GetState();
+
+           
+            if (mouseState.LeftButton == ButtonState.Released && 
+                oldState.LeftButton == ButtonState.Pressed &&
+                map.isOverACase(mouseState.X, mouseState.Y))
+            {
+                if (map.getSelectedCase() != null)
+                {
+                    Console.Out.WriteLine("fuu");
+                    map.getSelectedCase().SelectedCase = false;
+                }
+                else
+                {
+                    map.selectCase(mouseState.X, mouseState.Y);
+                }
+                
+            }
+
+           
+
+
+            oldState = mouseState;
+
 
             base.Update(gameTime);
         }
 
-      /*  protected void UpdatePlayer(GameTime gameTime)
-        {
-            MouseState mouseStateCurrent, mouseStatePrevious;
-
-            mouseStateCurrent = Mouse.GetState();
-
-             if (mouseStateCurrent.LeftButton == ButtonState.Pressed &&
-                 mouseStateCurrent.X < center.X + texture.Width / 2 &&
-                 mouseStateCurrent.X > center.X - texture.Width / 2 &&
-                 mouseStateCurrent.Y < center.Y + texture.Height / 2 &&
-                 mouseStateCurrent.Y > center.Y - texture.Height / 2)
-             {
-
-             }
-
-            Console.WriteLine("fu");
-
-            mouseStatePrevious = mouseStateCurrent;
-        }*/
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -129,8 +139,11 @@ namespace echecEtSharp
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+
             map.Draw(spriteBatch);
-            pawn.Draw(spriteBatch);
+           
+
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

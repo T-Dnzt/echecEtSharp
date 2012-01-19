@@ -37,6 +37,15 @@
       <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\pawn.xnb</Output>
       <Time>2012-01-15T02:31:45.5115969+01:00</Time>
     </Item>
+    <Item>
+      <Source>blue.png</Source>
+      <Name>blue</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blue.xnb</Output>
+      <Time>2012-01-18T16:42:15.5171172+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{5255DAA1-A9DD-4D6B-B368-40A2671EDCA2}</ContentProjectGUID>

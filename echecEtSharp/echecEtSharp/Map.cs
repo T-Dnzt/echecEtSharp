@@ -21,6 +21,13 @@ namespace echecEtSharp
             {1,0,1,0,1,0,1,0},
         };
 
+        private List<Case> caseList;
+
+        public List<Case> CaseList
+        {
+            get { return caseList; }
+        }
+
         private List<Texture2D> tileTextures;
         private SpriteFont font;
         private List<String> alpha;
@@ -29,6 +36,7 @@ namespace echecEtSharp
         {
             tileTextures = new List<Texture2D>();
             alpha = new List<String>() { "a", "b", "c", "d", "e", "f", "g", "h" };
+            caseList = new List<Case>();
         }
 
         public void AddFont(SpriteFont newFont)
@@ -55,8 +63,50 @@ namespace echecEtSharp
             return mapArray[alpha.IndexOf(c), i];
         }
 
+        public bool isOverACase(int x, int y)
+        {
+            foreach (Case c in caseList)
+            {
+                if ( x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        public void selectCase(int x, int y)
+        {
+            foreach(Case c in caseList)
+            {
+                if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
+                {
+                    c.SelectedCase = true;
+                    c.CaseTexture = tileTextures[2];
+                }
+            }
+        }
+
+        public Case getSelectedCase()
+        {
+            foreach (Case c in caseList)
+            {
+                if (c.SelectedCase.Equals(true))
+                {
+                    return c;
+                }
+            }
+
+            return null;
+        }
+
+       // public 
+
         public void Draw(SpriteBatch batch)
         {
+
             int columnNum = 8;
             int rowLetterTop = 0;
             int rowLetterDown = 0;
@@ -68,36 +118,44 @@ namespace echecEtSharp
                 batch.DrawString(font, columnNum.ToString(), new Vector2(20, columnNumPositionLeftY), Color.Black);
                 batch.DrawString(font, columnNum.ToString(), new Vector2(columnNumPositionRightX, columnNumPositionLeftY), Color.Black);
 
-
-                columnNumPositionLeftY += 50;
-                columnNum--;
-
                 for (int y = 0; y < Height + 1; y++)
                 {
                     if (y == 8)
                     {
                         batch.DrawString(font, alpha.ElementAt(rowLetterDown), new Vector2(70 + x * 50, 20 + 9 * 50), Color.Black);
-                        rowLetterDown++;
+                        rowLetterDown++;          
                     }
                     else if (y < Height)
                     {
+                        int textureIndex = mapArray[y, x];
+
+                        if (textureIndex == -1)
+                            continue;
+
+                        Case newCase = new Case(tileTextures[textureIndex], 50 + x * 50, 50 + y * 50, 50, 50, alpha.ElementAt(rowLetterDown), columnNum.ToString());
+                        caseList.Add(newCase);
+                        batch.Draw(newCase.CaseTexture, newCase.CaseRectangle , Color.White);
 
                         if (y == 0)
                         {
                             batch.DrawString(font, alpha.ElementAt(rowLetterTop), new Vector2(70 + x * 50, 20 + y * 50), Color.Black);
                             rowLetterTop++;
                         }
-
-                        int textureIndex = mapArray[y, x];
-                        if (textureIndex == -1)
-                            continue;
-
-                        Texture2D texture = tileTextures[textureIndex];
-                        batch.Draw(texture, new Rectangle(50 + x * 50, 50 + y * 50, 50, 50), Color.White);
+                        
                     }
+                    
                 }
 
+                columnNumPositionLeftY += 50;
+                columnNum--;
 
+
+            }
+
+            if (getSelectedCase() != null)
+            {
+                Console.WriteLine("rhooooooooooooo");
+                batch.Draw(getSelectedCase().CaseTexture, getSelectedCase().CaseRectangle, Color.White);
             }
         }
     }
