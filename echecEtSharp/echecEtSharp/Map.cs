@@ -78,6 +78,7 @@ namespace echecEtSharp
         public void unSelectCase()
         {
             getSelectedCase().SelectedCase = false;
+           
         }
 
         public void selectCase(int x, int y)
@@ -87,7 +88,7 @@ namespace echecEtSharp
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     c.SelectedCase = true;
-                    c.CaseTexture = tileTextures[2];
+                   
                 }
             }
         }
@@ -109,6 +110,7 @@ namespace echecEtSharp
 
         public void Draw(SpriteBatch batch)
         {
+
 
             int columnNum = 8;
             int rowLetterTop = 0;
@@ -158,11 +160,12 @@ namespace echecEtSharp
 
             }
 
-           
             if (getSelectedCase() != null)
             {
-                batch.Draw(getSelectedCase().CaseTexture, getSelectedCase().CaseRectangle, Color.White);
+                batch.Draw(tileTextures[2], getSelectedCase().CaseRectangle, Color.White);
             }
+           
+
         }
     }
 }

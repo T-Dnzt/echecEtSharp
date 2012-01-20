@@ -55,7 +55,7 @@ namespace echecEtSharp
 
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(this.caseTex, this.caseRec, Color.White);
+            batch.Draw(this.caseTex, this.caseRec, Color.White);  
         }
             
 

@@ -22,7 +22,7 @@ namespace echecEtSharp
         SpriteBatch spriteBatch;
         Map map;
         SpriteFont font;
-        Pawn pawn;
+        
         Piece selectedPiece;
 
         MouseState mouseState;
@@ -122,9 +122,6 @@ namespace echecEtSharp
                 
             }
 
-           
-
-
             oldState = mouseState;
 
 
@@ -144,7 +141,7 @@ namespace echecEtSharp
             spriteBatch.Begin();
 
             map.Draw(spriteBatch);
-           
+            
 
 
             spriteBatch.End();
