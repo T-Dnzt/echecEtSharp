@@ -138,8 +138,9 @@ namespace echecEtSharp
                         Case newCase = new Case(tileTextures[textureIndex], 50 + x * 50, 50 + y * 50, 50, 50, alpha.ElementAt(rowLetterDown), columnNum.ToString());
                         caseList.Add(newCase);
 
- 
-                        batch.Draw(newCase.CaseTexture, newCase.CaseRectangle , Color.White);
+                        newCase.Draw(batch);
+                    
+                       
 
                         if (y == 0)
                         {
