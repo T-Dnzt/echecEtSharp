@@ -11,8 +11,8 @@ namespace echecEtSharp.Pieces
 
     class Queen : Piece
     {
-        public Queen(Texture2D tex, Vector2 pos, Vector2 behavior, Boolean isWhite, int moveTimes, Boolean canJump)
-            : base(tex, pos, behavior, isWhite, moveTimes, canJump)
+        public Queen(Texture2D tex, Boolean isWhite, Boolean canJump)
+            : base(tex, isWhite, canJump)
         {
 
         }
@@ -23,10 +23,7 @@ namespace echecEtSharp.Pieces
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-        }
+     
     }
     
 }

@@ -21,6 +21,10 @@ namespace echecEtSharp
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Map map;
+
+        Player player1;
+        Player player2;
+
         SpriteFont font;
         
         Piece selectedPiece;
@@ -38,6 +42,8 @@ namespace echecEtSharp
             IsMouseVisible = true;
 
             map = new Map();
+            player1 = new Player(1, true);
+            player2 = new Player(2, false);
         }
 
         /// <summary>
@@ -70,6 +76,15 @@ namespace echecEtSharp
             map.AddTexture(whiteC);
             map.AddTexture(greyC);
             map.AddTexture(blueC);
+            map.generateMap();
+
+
+            loadPiecesTextures(player1, "White");
+            loadPiecesTextures(player2, "Black");
+            player1.generatePieces();
+            player2.generatePieces();
+            setPiecesOnCases();
+
 
             font = Content.Load<SpriteFont>("Arial");
             map.AddFont(font);
@@ -78,6 +93,54 @@ namespace echecEtSharp
          
            // pawn = new Pawn(pawnTexture, lol, behave, false, 1, false); 
             
+        }
+
+        private void loadPiecesTextures(Player player, String name)
+        {
+            player.PieceTextures.Add(String.Format("{0} King", name), Content.Load<Texture2D>(String.Format("{0}king", name.ToLower())));
+            player.PieceTextures.Add(String.Format("{0} Knight", name), Content.Load<Texture2D>(String.Format("{0}knight", name.ToLower())));
+            player.PieceTextures.Add(String.Format("{0} Pawn", name), Content.Load<Texture2D>(String.Format("{0}pawn", name.ToLower())));
+            player.PieceTextures.Add(String.Format("{0} Queen", name), Content.Load<Texture2D>(String.Format("{0}queen", name.ToLower())));
+            player.PieceTextures.Add(String.Format("{0} Rook", name), Content.Load<Texture2D>(String.Format("{0}rook", name.ToLower())));
+            player.PieceTextures.Add(String.Format("{0} Bishop", name), Content.Load<Texture2D>(String.Format("{0}bishop", name.ToLower())));
+        }
+
+        private void setPiecesOnCases()
+        {
+           map.CaseList.ElementAt(56).Piece = player1.Rooks.ElementAt(0);
+           map.CaseList.ElementAt(0).Piece = player2.Rooks.ElementAt(0);
+
+           map.CaseList.ElementAt(57).Piece = player1.Knights.ElementAt(0);
+           map.CaseList.ElementAt(1).Piece = player2.Knights.ElementAt(0);
+
+           map.CaseList.ElementAt(58).Piece = player1.Bishops.ElementAt(0);
+           map.CaseList.ElementAt(2).Piece = player2.Bishops.ElementAt(0);
+
+           map.CaseList.ElementAt(59).Piece = player1.King;
+           map.CaseList.ElementAt(3).Piece = player2.King;
+
+           map.CaseList.ElementAt(60).Piece = player1.Queen;
+           map.CaseList.ElementAt(4).Piece = player2.Queen;
+
+           map.CaseList.ElementAt(61).Piece = player1.Bishops.ElementAt(1);
+           map.CaseList.ElementAt(5).Piece = player2.Bishops.ElementAt(1);
+
+           map.CaseList.ElementAt(62).Piece = player1.Knights.ElementAt(1);
+           map.CaseList.ElementAt(6).Piece = player2.Knights.ElementAt(1);
+
+           map.CaseList.ElementAt(63).Piece = player1.Rooks.ElementAt(0);
+           map.CaseList.ElementAt(7).Piece = player2.Rooks.ElementAt(1);
+
+           for (int i = 0; i < 8; i++)
+           {
+               map.CaseList.ElementAt(48 + i).Piece = player1.Pawns.ElementAt(i);
+               map.CaseList.ElementAt(8 + i).Piece = player2.Pawns.ElementAt(i);        
+           }
+           // 48 56
+
+            
+
+           
         }
 
         /// <summary>
@@ -142,7 +205,6 @@ namespace echecEtSharp
 
             map.Draw(spriteBatch);
             
-
 
             spriteBatch.End();
             base.Draw(gameTime);

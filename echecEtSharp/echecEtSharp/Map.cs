@@ -39,6 +39,25 @@ namespace echecEtSharp
             tileTextures = new List<Texture2D>();
             alpha = new List<String>() { "a", "b", "c", "d", "e", "f", "g", "h" };
             caseList = new List<Case>();
+
+        }
+
+        public void generateMap()
+        {
+            int columnNum = 8;
+
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    int textureIndex = mapArray[y, x];
+
+                    Case newCase = new Case(tileTextures[textureIndex], tileTextures[2], 50 + y * 50, 50 + x * 50, 50, 50, alpha.ElementAt(x), columnNum.ToString());
+                    caseList.Add(newCase);
+
+                    columnNum--;
+                }
+            }
         }
 
         public void AddFont(SpriteFont newFont)
@@ -112,79 +131,38 @@ namespace echecEtSharp
         {
             foreach (Case c in caseList)
             {
-                batch.Draw(c.CaseTexture, c.CaseRectangle, Color.White);
+                c.Draw(batch);
             }
         }
 
 
-       // public 
-        public void Draw(SpriteBatch batch)
+        public void DrawCoordinates(SpriteBatch batch)
         {
-
-           
             int columnNum = 8;
-            int rowLetterTop = 0;
-            int rowLetterDown = 0;
+            int rowLetter = 0;
             int columnNumPositionLeftY = 70;
-            int columnNumPositionRightX = 9 * 50 + 20;
 
-            for (int x = 0; x < Width; x++)
+            for (int x = 0; x < 8; x++)
             {
                 batch.DrawString(font, columnNum.ToString(), new Vector2(20, columnNumPositionLeftY), Color.Black);
-                batch.DrawString(font, columnNum.ToString(), new Vector2(columnNumPositionRightX, columnNumPositionLeftY), Color.Black);
-
-                for (int y = 0; y < Height + 1; y++)
-                {
-                    if (y == 8)
-                    {
-                        batch.DrawString(font, alpha.ElementAt(rowLetterDown), new Vector2(70 + x * 50, 20 + 9 * 50), Color.Black);
-                        rowLetterDown++;          
-                    }
-                    else if (y < Height)
-                    {
-                        int textureIndex = mapArray[y, x];
-
-                        if (textureIndex == -1)
-                            continue;
-
-                        if (iterator == 1)
-                        {
-                            Case newCase = new Case(tileTextures[textureIndex], 50 + x * 50, 50 + y * 50, 50, 50, alpha.ElementAt(rowLetterDown), columnNum.ToString());
-                            Console.WriteLine(newCase.CaseTexture);
-                            caseList.Add(newCase);
-                        }
-
-                        
-
-                        if (y == 0)
-                        {
-                            batch.DrawString(font, alpha.ElementAt(rowLetterTop), new Vector2(70 + x * 50, 20 + y * 50), Color.Black);
-                            rowLetterTop++;
-                        }
-                        
-                    }
-                    
-                }
-
+                batch.DrawString(font, columnNum.ToString(), new Vector2(9 * 50 + 20, columnNumPositionLeftY), Color.Black);
                 columnNumPositionLeftY += 50;
                 columnNum--;
             }
 
-            if(iterator == 0)
-                DrawCases(batch);
-
-            iterator = 0;
-
-
-            
-
-            Case checkCase = getSelectedCase();
-            if (checkCase != null)
+            for (int x = 0; x < 8; x++)
             {
-                batch.Draw(tileTextures[2], checkCase.CaseRectangle, Color.White);
-            }
+                batch.DrawString(font, alpha.ElementAt(x), new Vector2(70 + x * 50, 20 + 9 * 50), Color.Black);
+                batch.DrawString(font, alpha.ElementAt(x), new Vector2(70 + x * 50, 20), Color.Black);
+                rowLetter++;
+            }     
+        }
 
-          
+       // public 
+        public void Draw(SpriteBatch batch)
+        {
+            DrawCoordinates(batch);
+            DrawCases(batch);
         }
     }
 }

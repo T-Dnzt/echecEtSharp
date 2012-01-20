@@ -31,40 +31,28 @@ namespace echecEtSharp
         protected int moveTimes;
         protected float speed;
 
-        public Piece(Texture2D tex, Vector2 pos, Vector2 behavior, Boolean isWhite, int moveTimes, Boolean canJump)
+        public Piece(Texture2D tex, Boolean isWhite,  Boolean canJump)
         {
             this.texture = tex;
-            this.position = pos;
-            this.behavior = behavior;
             this.isWhite = isWhite;
-            this.moveTimes = moveTimes;
-
-            this.canJump = false;
-            this.isAlive = true;
-            this.selected = false;
 
             this.speed = 0.5f;
             this.velocity = Vector2.Zero;
-           
-            this.width = texture.Width;
-            this.height = texture.Height;
+  
             
-            this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
-
-            this.center = new Vector2(position.X + texture.Width / 2, position.Y + texture.Height / 2);
-            this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
 
 
 
         public virtual void Update(GameTime gameTime)
         {
-            this.center = new Vector2(position.X + texture.Width / 2, position.Y + texture.Height / 2);
+            //this.center = new Vector2(position.X + texture.Width / 2, position.Y + texture.Height / 2);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch batch, Rectangle rec)
         {
-            spriteBatch.Draw(texture, center, null, Color.White, rotation, origin, 1.0f, SpriteEffects.None, 0);
+             batch.Draw(this.texture, rec, Color.White);
         }
 
         public Vector2 Position

@@ -18,3 +18,15 @@ C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x8
 C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.pdb
 C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\pawn.xnb
 C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blue.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackking.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackknight.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackpawn.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackqueen.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackrook.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackbishop.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whitepawn.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whitebishop.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whiteking.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whiteknight.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whitequeen.xnb
+C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whiterook.xnb

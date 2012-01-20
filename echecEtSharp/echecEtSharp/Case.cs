@@ -33,6 +33,14 @@ namespace echecEtSharp
             set { caseTex = value; }
         }
 
+        private Texture2D selectedtexture;
+
+        public Texture2D Selectedtexture
+        {
+            get { return selectedtexture; }
+            set { selectedtexture = value; }
+        }
+
         private bool selectedCase;
 
         public bool SelectedCase
@@ -45,17 +53,29 @@ namespace echecEtSharp
         private string letterIdentifier;
         private string numberIdentifier;
 
-        public Case(Texture2D texture, int x, int y, int width, int height, string letterId, string numberId)
+        public Case(Texture2D texture, Texture2D selectedTex, int x, int y, int width, int height, string letterId, string numberId)
         {
             this.caseRec = new Rectangle(x, y, width, height);
+            this.selectedtexture = selectedTex;
             this.caseTex = texture;
             this.letterIdentifier = letterId;
             this.numberIdentifier = numberId;
+            this.piece = null;
         }
 
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(this.caseTex, this.caseRec, Color.White);  
+            batch.Draw(this.caseTex, this.caseRec, Color.White);
+
+            if (this.selectedCase == true)
+            {
+                batch.Draw(this.selectedtexture, this.caseRec, Color.White);
+            }
+
+            if (this.piece != null)
+            {
+                piece.Draw(batch, this.caseRec);
+            }
         }
             
 
