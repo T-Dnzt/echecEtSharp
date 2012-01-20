@@ -9,6 +9,16 @@ namespace echecEtSharp
 {
     class Case
     {
+
+        private Piece piece;
+
+        public Piece Piece
+        {
+            get { return piece; }
+            set { piece = value; }
+        }
+
+
         private Rectangle caseRec;
 
         public Rectangle CaseRectangle
@@ -42,6 +52,12 @@ namespace echecEtSharp
             this.letterIdentifier = letterId;
             this.numberIdentifier = numberId;
         }
+
+        public void Draw(SpriteBatch batch)
+        {
+            batch.Draw(this.caseTex, this.caseRec, Color.White);
+        }
+            
 
 
     }
