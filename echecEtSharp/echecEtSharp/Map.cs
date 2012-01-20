@@ -21,6 +21,8 @@ namespace echecEtSharp
             {1,0,1,0,1,0,1,0},
         };
 
+        private int iterator = 1;
+
         private List<Case> caseList;
 
         public List<Case> CaseList
@@ -106,12 +108,20 @@ namespace echecEtSharp
             return null;
         }
 
-       // public 
+        public void DrawCases(SpriteBatch batch)
+        {
+            foreach (Case c in caseList)
+            {
+                batch.Draw(c.CaseTexture, c.CaseRectangle, Color.White);
+            }
+        }
 
+
+       // public 
         public void Draw(SpriteBatch batch)
         {
 
-
+           
             int columnNum = 8;
             int rowLetterTop = 0;
             int rowLetterDown = 0;
@@ -137,12 +147,14 @@ namespace echecEtSharp
                         if (textureIndex == -1)
                             continue;
 
-                        Case newCase = new Case(tileTextures[textureIndex], 50 + x * 50, 50 + y * 50, 50, 50, alpha.ElementAt(rowLetterDown), columnNum.ToString());
-                        caseList.Add(newCase);
+                        if (iterator == 1)
+                        {
+                            Case newCase = new Case(tileTextures[textureIndex], 50 + x * 50, 50 + y * 50, 50, 50, alpha.ElementAt(rowLetterDown), columnNum.ToString());
+                            Console.WriteLine(newCase.CaseTexture);
+                            caseList.Add(newCase);
+                        }
 
-                        newCase.Draw(batch);
-                    
-                       
+                        
 
                         if (y == 0)
                         {
@@ -156,16 +168,23 @@ namespace echecEtSharp
 
                 columnNumPositionLeftY += 50;
                 columnNum--;
-
-
             }
 
-            if (getSelectedCase() != null)
+            if(iterator == 0)
+                DrawCases(batch);
+
+            iterator = 0;
+
+
+            
+
+            Case checkCase = getSelectedCase();
+            if (checkCase != null)
             {
-                batch.Draw(tileTextures[2], getSelectedCase().CaseRectangle, Color.White);
+                batch.Draw(tileTextures[2], checkCase.CaseRectangle, Color.White);
             }
-           
 
+          
         }
     }
 }
