@@ -75,7 +75,10 @@ namespace echecEtSharp
             return false;
         }
 
-
+        public void unSelectCase()
+        {
+            getSelectedCase().SelectedCase = false;
+        }
 
         public void selectCase(int x, int y)
         {
@@ -98,7 +101,7 @@ namespace echecEtSharp
                     return c;
                 }
             }
-
+         
             return null;
         }
 
@@ -134,6 +137,8 @@ namespace echecEtSharp
 
                         Case newCase = new Case(tileTextures[textureIndex], 50 + x * 50, 50 + y * 50, 50, 50, alpha.ElementAt(rowLetterDown), columnNum.ToString());
                         caseList.Add(newCase);
+
+ 
                         batch.Draw(newCase.CaseTexture, newCase.CaseRectangle , Color.White);
 
                         if (y == 0)
@@ -152,9 +157,9 @@ namespace echecEtSharp
 
             }
 
+           
             if (getSelectedCase() != null)
             {
-                Console.WriteLine("rhooooooooooooo");
                 batch.Draw(getSelectedCase().CaseTexture, getSelectedCase().CaseRectangle, Color.White);
             }
         }

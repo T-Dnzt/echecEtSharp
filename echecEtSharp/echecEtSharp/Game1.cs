@@ -107,15 +107,18 @@ namespace echecEtSharp
                 oldState.LeftButton == ButtonState.Pressed &&
                 map.isOverACase(mouseState.X, mouseState.Y))
             {
+
                 if (map.getSelectedCase() != null)
                 {
-                    Console.Out.WriteLine("fuu");
-                    map.getSelectedCase().SelectedCase = false;
+                    map.unSelectCase();
                 }
                 else
                 {
                     map.selectCase(mouseState.X, mouseState.Y);
                 }
+
+                
+
                 
             }
 
