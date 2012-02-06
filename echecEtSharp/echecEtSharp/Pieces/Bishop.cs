@@ -21,5 +21,7 @@ namespace echecEtSharp.Pieces
             base.Update(gameTime);
         }
 
+
+
     }
 }

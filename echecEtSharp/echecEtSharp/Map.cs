@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -91,6 +90,7 @@ namespace echecEtSharp
                 if ( x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     return true;
+
                 }
             }
             return false;
@@ -112,6 +112,19 @@ namespace echecEtSharp
                    
                 }
             }
+        }
+
+        public Case getCase(int x, int y)
+        {
+            foreach (Case c in caseList)
+            {
+                if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
+                {
+                    return c;
+
+                }
+            }
+            return null;
         }
 
         public Case getSelectedCase()

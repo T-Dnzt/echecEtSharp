@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -55,26 +52,26 @@ namespace echecEtSharp
 
         public Case(Texture2D texture, Texture2D selectedTex, int x, int y, int width, int height, string letterId, string numberId)
         {
-            this.caseRec = new Rectangle(x, y, width, height);
-            this.selectedtexture = selectedTex;
-            this.caseTex = texture;
-            this.letterIdentifier = letterId;
-            this.numberIdentifier = numberId;
-            this.piece = null;
+            caseRec = new Rectangle(x, y, width, height);
+            selectedtexture = selectedTex;
+            caseTex = texture;
+            letterIdentifier = letterId;
+            numberIdentifier = numberId;
+            piece = null;
         }
 
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(this.caseTex, this.caseRec, Color.White);
+            batch.Draw(caseTex, caseRec, Color.White);
 
-            if (this.selectedCase == true)
+            if (selectedCase)
             {
-                batch.Draw(this.selectedtexture, this.caseRec, Color.White);
+                batch.Draw(selectedtexture, caseRec, Color.White);
             }
 
-            if (this.piece != null)
+            if (piece != null)
             {
-                piece.Draw(batch, this.caseRec);
+                piece.Draw(batch, caseRec);
             }
         }
             

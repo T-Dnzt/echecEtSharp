@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -52,7 +49,7 @@ namespace echecEtSharp
 
         public void Draw(SpriteBatch batch, Rectangle rec)
         {
-             batch.Draw(this.texture, rec, Color.White);
+             batch.Draw(texture, rec, Color.White);
         }
 
         public Vector2 Position

@@ -1,14 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using echecEtSharp.Pieces;
 
 namespace echecEtSharp
 {
@@ -16,7 +10,7 @@ namespace echecEtSharp
     /// This is the main type for your game
     /// </summary>
 
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -161,7 +155,7 @@ namespace echecEtSharp
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+                Exit();
 
             mouseState = Mouse.GetState();
 
@@ -177,7 +171,10 @@ namespace echecEtSharp
                 }
                 else
                 {
-                    map.selectCase(mouseState.X, mouseState.Y);
+                    if (map.getCase(mouseState.X, mouseState.Y).Piece is Piece)
+                    {
+                        map.selectCase(mouseState.X, mouseState.Y);
+                    }
                 }
 
                 
