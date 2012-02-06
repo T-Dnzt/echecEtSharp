@@ -13,7 +13,7 @@ namespace echecEtSharp.Pieces
         public Pawn(Texture2D tex, Boolean isWhite, Boolean canJump)
             : base(tex, isWhite, canJump)
         {
-
+            
         }
 
         public override void Update(GameTime gameTime)

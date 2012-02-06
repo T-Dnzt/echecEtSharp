@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace echecEtSharp
 {
@@ -9,9 +10,9 @@ namespace echecEtSharp
         protected Texture2D texture;
 
         protected Vector2 position;
-        protected Vector2 velocity;
+    
         protected Vector2 center;
-        protected Vector2 origin;
+
         protected Vector2 behavior;
 
         protected Rectangle bounds;
@@ -19,28 +20,19 @@ namespace echecEtSharp
         protected int height;
 
         protected float rotation;
-
         protected Boolean isWhite;
         protected Boolean isAlive;
         protected Boolean canJump;
-        protected Boolean selected;
+        private Dictionary<String, int[]> moveTypes;
 
-        protected int moveTimes;
-        protected float speed;
+
+ 
 
         public Piece(Texture2D tex, Boolean isWhite,  Boolean canJump)
         {
             this.texture = tex;
             this.isWhite = isWhite;
-
-            this.speed = 0.5f;
-            this.velocity = Vector2.Zero;
-  
-            
-            //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
-
-
 
         public virtual void Update(GameTime gameTime)
         {
@@ -75,5 +67,10 @@ namespace echecEtSharp
             get { return texture; }
         }
 
+        protected Dictionary<String, int[]> MoveTypes
+        {
+            get { return moveTypes; }
+            set { moveTypes = value; }
+        }
     }
 }
