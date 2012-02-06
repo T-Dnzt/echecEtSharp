@@ -71,7 +71,7 @@ namespace echecEtSharp
             this.id = id;
             this.isWhitePlayer = isWhitePlayer;
             pieceTextures = new Dictionary<String, Texture2D>();
-  
+
         }
 
         public void createPieces(string color, bool whiteC)

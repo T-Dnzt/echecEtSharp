@@ -67,7 +67,6 @@ namespace echecEtSharp
             if (selectedCase)
             {
                 batch.Draw(selectedtexture, caseRec, Color.White);
-                
             }
 
             if (piece != null)
@@ -75,7 +74,7 @@ namespace echecEtSharp
                 piece.Draw(batch, caseRec);
             }
         }
-            
+
 
 
     }

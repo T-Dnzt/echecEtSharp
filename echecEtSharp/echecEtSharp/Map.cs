@@ -87,7 +87,7 @@ namespace echecEtSharp
         {
             foreach (Case c in caseList)
             {
-                if ( x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
+                if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     return true;
 
@@ -99,17 +99,17 @@ namespace echecEtSharp
         public void unSelectCase()
         {
             getSelectedCase().SelectedCase = false;
-           
+
         }
 
         public void selectCase(int x, int y)
         {
-            foreach(Case c in caseList)
+            foreach (Case c in caseList)
             {
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     c.SelectedCase = true;
-                   
+
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace echecEtSharp
                     return c;
                 }
             }
-         
+
             return null;
         }
 
@@ -168,10 +168,10 @@ namespace echecEtSharp
                 batch.DrawString(font, alpha.ElementAt(x), new Vector2(70 + x * 50, 20 + 9 * 50), Color.Black);
                 batch.DrawString(font, alpha.ElementAt(x), new Vector2(70 + x * 50, 20), Color.Black);
                 rowLetter++;
-            }     
+            }
         }
 
-       // public 
+        // public 
         public void Draw(SpriteBatch batch)
         {
             DrawCoordinates(batch);

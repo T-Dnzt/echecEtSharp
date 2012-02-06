@@ -20,7 +20,7 @@ namespace echecEtSharp
         Player player2;
 
         SpriteFont font;
-        
+
         Piece selectedPiece;
 
         MouseState mouseState;
@@ -83,10 +83,10 @@ namespace echecEtSharp
             font = Content.Load<SpriteFont>("Arial");
             map.AddFont(font);
 
-           // Texture2D pawnTexture = Content.Load<Texture2D>("pawn");
-         
-           // pawn = new Pawn(pawnTexture, lol, behave, false, 1, false); 
-            
+            // Texture2D pawnTexture = Content.Load<Texture2D>("pawn");
+
+            // pawn = new Pawn(pawnTexture, lol, behave, false, 1, false); 
+
         }
 
         private void loadPiecesTextures(Player player, String name)
@@ -101,40 +101,40 @@ namespace echecEtSharp
 
         private void setPiecesOnCases()
         {
-           map.CaseList.ElementAt(56).Piece = player1.Rooks.ElementAt(0);
-           map.CaseList.ElementAt(0).Piece = player2.Rooks.ElementAt(0);
+            map.CaseList.ElementAt(56).Piece = player1.Rooks.ElementAt(0);
+            map.CaseList.ElementAt(0).Piece = player2.Rooks.ElementAt(0);
 
-           map.CaseList.ElementAt(57).Piece = player1.Knights.ElementAt(0);
-           map.CaseList.ElementAt(1).Piece = player2.Knights.ElementAt(0);
+            map.CaseList.ElementAt(57).Piece = player1.Knights.ElementAt(0);
+            map.CaseList.ElementAt(1).Piece = player2.Knights.ElementAt(0);
 
-           map.CaseList.ElementAt(58).Piece = player1.Bishops.ElementAt(0);
-           map.CaseList.ElementAt(2).Piece = player2.Bishops.ElementAt(0);
+            map.CaseList.ElementAt(58).Piece = player1.Bishops.ElementAt(0);
+            map.CaseList.ElementAt(2).Piece = player2.Bishops.ElementAt(0);
 
-           map.CaseList.ElementAt(59).Piece = player1.King;
-           map.CaseList.ElementAt(3).Piece = player2.King;
+            map.CaseList.ElementAt(59).Piece = player1.King;
+            map.CaseList.ElementAt(3).Piece = player2.King;
 
-           map.CaseList.ElementAt(60).Piece = player1.Queen;
-           map.CaseList.ElementAt(4).Piece = player2.Queen;
+            map.CaseList.ElementAt(60).Piece = player1.Queen;
+            map.CaseList.ElementAt(4).Piece = player2.Queen;
 
-           map.CaseList.ElementAt(61).Piece = player1.Bishops.ElementAt(1);
-           map.CaseList.ElementAt(5).Piece = player2.Bishops.ElementAt(1);
+            map.CaseList.ElementAt(61).Piece = player1.Bishops.ElementAt(1);
+            map.CaseList.ElementAt(5).Piece = player2.Bishops.ElementAt(1);
 
-           map.CaseList.ElementAt(62).Piece = player1.Knights.ElementAt(1);
-           map.CaseList.ElementAt(6).Piece = player2.Knights.ElementAt(1);
+            map.CaseList.ElementAt(62).Piece = player1.Knights.ElementAt(1);
+            map.CaseList.ElementAt(6).Piece = player2.Knights.ElementAt(1);
 
-           map.CaseList.ElementAt(63).Piece = player1.Rooks.ElementAt(0);
-           map.CaseList.ElementAt(7).Piece = player2.Rooks.ElementAt(1);
+            map.CaseList.ElementAt(63).Piece = player1.Rooks.ElementAt(0);
+            map.CaseList.ElementAt(7).Piece = player2.Rooks.ElementAt(1);
 
-           for (int i = 0; i < 8; i++)
-           {
-               map.CaseList.ElementAt(48 + i).Piece = player1.Pawns.ElementAt(i);
-               map.CaseList.ElementAt(8 + i).Piece = player2.Pawns.ElementAt(i);        
-           }
-           // 48 56
+            for (int i = 0; i < 8; i++)
+            {
+                map.CaseList.ElementAt(48 + i).Piece = player1.Pawns.ElementAt(i);
+                map.CaseList.ElementAt(8 + i).Piece = player2.Pawns.ElementAt(i);
+            }
+            // 48 56
 
-            
 
-           
+
+
         }
 
         /// <summary>
@@ -159,14 +159,15 @@ namespace echecEtSharp
 
             mouseState = Mouse.GetState();
 
-           
-            if (mouseState.LeftButton == ButtonState.Released && 
+
+            if (mouseState.LeftButton == ButtonState.Released &&
                 oldState.LeftButton == ButtonState.Pressed &&
                 map.isOverACase(mouseState.X, mouseState.Y))
             {
 
                 if (map.getSelectedCase() != null)
                 {
+
                     map.unSelectCase();
                 }
                 else
@@ -177,9 +178,6 @@ namespace echecEtSharp
                     }
                 }
 
-                
-
-                
             }
 
             oldState = mouseState;
@@ -201,7 +199,7 @@ namespace echecEtSharp
             spriteBatch.Begin();
 
             map.Draw(spriteBatch);
-            
+
 
             spriteBatch.End();
             base.Draw(gameTime);
