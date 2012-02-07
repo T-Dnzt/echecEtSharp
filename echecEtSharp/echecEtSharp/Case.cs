@@ -46,18 +46,37 @@ namespace echecEtSharp
             set { selectedCase = value; }
         }
 
+        private bool availableCase;
+
+        public bool AvailableCase
+        {
+            get { return availableCase; }
+            set { availableCase = value; }
+        }
+
+        private Texture2D availableTexture;
+
+        public Texture2D AvailableTexture
+        {
+            get { return availableTexture; }
+            set { availableTexture = value; }
+        }
+
+       
 
         private string letterIdentifier;
         private string numberIdentifier;
 
-        public Case(Texture2D texture, Texture2D selectedTex, int x, int y, int width, int height, string letterId, string numberId)
+        public Case(Texture2D texture, Texture2D selectedTex, Texture2D availableTex, int x, int y, int width, int height, string letterId, string numberId)
         {
             caseRec = new Rectangle(x, y, width, height);
             selectedtexture = selectedTex;
+            availableTexture = availableTex;
             caseTex = texture;
             letterIdentifier = letterId;
             numberIdentifier = numberId;
             piece = null;
+            this.availableCase = false;
         }
 
         public void Draw(SpriteBatch batch)
@@ -67,11 +86,25 @@ namespace echecEtSharp
             if (selectedCase)
             {
                 batch.Draw(selectedtexture, caseRec, Color.White);
+
+                if (piece != null)
+                {
+                    if (availableCase)
+                    {
+                        batch.Draw(availableTexture, caseRec, Color.White);
+                    }
+                }
+               
             }
+
+
 
             if (piece != null)
             {
                 piece.Draw(batch, caseRec);
+
+
+               
             }
         }
 

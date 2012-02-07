@@ -51,7 +51,7 @@ namespace echecEtSharp
                 {
                     int textureIndex = mapArray[y, x];
 
-                    Case newCase = new Case(tileTextures[textureIndex], tileTextures[2], 50 + y * 50, 50 + x * 50, 50, 50, alpha.ElementAt(x), columnNum.ToString());
+                    Case newCase = new Case(tileTextures[textureIndex], tileTextures[2], tileTextures[3], 50 + y * 50, 50 + x * 50, 50, 50, alpha.ElementAt(x), columnNum.ToString());
                     caseList.Add(newCase);
 
                     columnNum--;
@@ -148,7 +148,6 @@ namespace echecEtSharp
             }
         }
 
-
         public void DrawCoordinates(SpriteBatch batch)
         {
             int columnNum = 8;
@@ -175,7 +174,7 @@ namespace echecEtSharp
         public void Draw(SpriteBatch batch)
         {
             DrawCoordinates(batch);
-            DrawCases(batch);
+            DrawCases(batch); 
         }
     }
 }

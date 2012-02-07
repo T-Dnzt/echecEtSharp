@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace echecEtSharp
 {
@@ -23,23 +24,42 @@ namespace echecEtSharp
         protected Boolean isWhite;
         protected Boolean isAlive;
         protected Boolean canJump;
+
         protected Boolean selected;
+
+        //string = once, attack or unlimited, define the number of times the move of int[] can be done
+        protected Dictionary<string, int[]> moveTypes;
+        private List<Case> availableCases;
 
         protected int moveTimes;
         protected float speed;
+
+        public List<Case> AvailableCases
+        {
+            get { return availableCases; }
+            set { availableCases = value; }
+        }
+
 
         public Piece(Texture2D tex, Boolean isWhite, Boolean canJump)
         {
             this.texture = tex;
             this.isWhite = isWhite;
 
+            this.availableCases = new List<Case>();
             this.speed = 0.5f;
             this.velocity = Vector2.Zero;
 
 
             //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
+
         }
 
+
+        public virtual void defineAvailableCases(Case c)
+        {
+
+        }
 
 
         public virtual void Update(GameTime gameTime)

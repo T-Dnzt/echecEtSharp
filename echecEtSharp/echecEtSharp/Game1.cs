@@ -9,7 +9,7 @@ namespace echecEtSharp
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-
+    
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -66,10 +66,12 @@ namespace echecEtSharp
             Texture2D whiteC = Content.Load<Texture2D>("white");
             Texture2D greyC = Content.Load<Texture2D>("grey");
             Texture2D blueC = Content.Load<Texture2D>("blue");
+            Texture2D redC = Content.Load<Texture2D>("red");
 
             map.AddTexture(whiteC);
             map.AddTexture(greyC);
             map.AddTexture(blueC);
+            map.AddTexture(redC);
             map.generateMap();
 
 
