@@ -24,15 +24,35 @@ namespace echecEtSharp.Pieces
             base.Update(gameTime);
         }
 
+
+        public override void undefineAvailableCases()
+        {
+            foreach (Case c in this.AvailableCases)
+            {
+                c.AvailableCase = false;
+            }
+            this.AvailableCases.Clear();
+        }
+
         public override void defineAvailableCases(Case c, List<Case> map)
         {
-            if (this.isWhite)
+            if (this.IsWhite)
             {
                 for (int i = 0; i < 3; i++)
                 {
                    Case tempC = map.ElementAt(map.IndexOf(c) - (7 + i));
-                   tempC.AvailableCase = true;
-                   AvailableCases.Add(tempC);
+
+                   if ((i == 0 || i == 2) && tempC.Piece != null && !tempC.Piece.IsWhite)
+                   {
+                       tempC.AvailableCase = true;
+                       AvailableCases.Add(tempC);
+                   }
+                   else if (i == 1 && tempC.Piece == null)
+                   {
+                       tempC.AvailableCase = true;
+                       AvailableCases.Add(tempC);
+                   }
+                  
                 }
             }
             else

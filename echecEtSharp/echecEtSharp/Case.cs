@@ -85,26 +85,17 @@ namespace echecEtSharp
 
             if (selectedCase)
             {
-                batch.Draw(selectedtexture, caseRec, Color.White);
-
-                if (piece != null)
-                {
-                    if (availableCase)
-                    {
-                        batch.Draw(availableTexture, caseRec, Color.White);
-                    }
-                }
-               
+                batch.Draw(selectedtexture, caseRec, Color.White);               
             }
 
-
+            if (availableCase)
+            {
+                batch.Draw(availableTexture, caseRec, Color.White);
+            }
 
             if (piece != null)
             {
                 piece.Draw(batch, caseRec);
-
-
-               
             }
         }
 

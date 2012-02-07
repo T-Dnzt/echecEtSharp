@@ -98,8 +98,9 @@ namespace echecEtSharp
 
         public void unSelectCase()
         {
-            getSelectedCase().SelectedCase = false;
-
+            Case sc = getSelectedCase();
+            sc.SelectedCase = false;
+           
         }
 
         public void selectCase(int x, int y)
@@ -109,7 +110,7 @@ namespace echecEtSharp
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     c.SelectedCase = true;
-
+                    c.Piece.defineAvailableCases(c, caseList);
                 }
             }
         }
@@ -174,7 +175,7 @@ namespace echecEtSharp
         public void Draw(SpriteBatch batch)
         {
             DrawCoordinates(batch);
-            DrawCases(batch); 
+            DrawCases(batch);
         }
     }
 }

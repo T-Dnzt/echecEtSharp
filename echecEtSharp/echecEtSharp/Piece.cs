@@ -21,7 +21,13 @@ namespace echecEtSharp
 
         protected float rotation;
 
-        protected Boolean isWhite;
+        private Boolean isWhite;
+
+        public Boolean IsWhite
+        {
+            get { return isWhite; }
+            set { isWhite = value; }
+        }
         protected Boolean isAlive;
         protected Boolean canJump;
 
@@ -56,7 +62,12 @@ namespace echecEtSharp
         }
 
 
-        public virtual void defineAvailableCases(Case c)
+        public virtual void defineAvailableCases(Case c, List<Case> map)
+        {
+
+        }
+
+        public virtual void undefineAvailableCases()
         {
 
         }
