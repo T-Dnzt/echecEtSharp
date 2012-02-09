@@ -166,33 +166,5 @@ namespace echecEtSharp.Pieces
                 }
             }
         }
-
-        private bool isOnA(int index)
-        {
-            int j = 1;
-            for (int i = 0; i < 8; i++)
-            {
-                if (index == j - 1)
-                {
-                    return true;
-                }
-                j = j + 8;
-            }
-            return false;
-        }
-
-        private bool isOnH(int index)
-        {
-            int j = 8;
-            for (int i = 0; i < 8; i++)
-            {
-                if (index == j - 1)
-                {
-                    return true;
-                }
-                j = j + 8;
-            }
-            return false;
-        }
     }
 }
