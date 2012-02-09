@@ -71,7 +71,7 @@ namespace echecEtSharp.Pieces
             }else
             {
                 //Vérifier si c'est le premier tour pour le mouvement du pion
-                if (IsOn1(map.IndexOf(c)))
+                if (isOn1(map.IndexOf(c)))
                 {
                     //DEVIENT UNE REEIIIIINE
                 }

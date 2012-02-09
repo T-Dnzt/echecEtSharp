@@ -137,7 +137,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool IsOn1(int index)
+        public bool isOn1(int index)
         {
             if(index > 55)
             {
