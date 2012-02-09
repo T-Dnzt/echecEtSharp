@@ -37,10 +37,41 @@ namespace echecEtSharp.Pieces
         //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override void defineAvailableCases(Case c, List<Case> map)
         {
-            if (this.IsWhite)
+            if(IsWhite){
+                //Vérifier si c'est le premier tour pour le mouvement du pion
+                if (isOn8(map.IndexOf(c)))
+                {
+                    //DEVIENT UNE REEIIIIINE
+                }
+                else
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Case tempC;
+                        if (i == 0 && map.ElementAt(map.IndexOf(c) - 8).Piece == null)
+                        {
+                            tempC = map.ElementAt(map.IndexOf(c) - 8);
+                            tempC.AvailableCase = true;
+                            AvailableCases.Add(tempC);
+                        }
+                        else if (i == 1 && !isOnH(map.IndexOf(c)) && map.ElementAt(map.IndexOf(c) - 7).Piece != null && !map.ElementAt(map.IndexOf(c) - 7).Piece.IsWhite)
+                        {
+                            tempC = map.ElementAt(map.IndexOf(c) - 7);
+                            tempC.AvailableCase = true;
+                            AvailableCases.Add(tempC);
+                        }
+                        else if (i == 2 && !isOnA(map.IndexOf(c)) && map.ElementAt(map.IndexOf(c) - 9).Piece != null && !map.ElementAt(map.IndexOf(c) - 9).Piece.IsWhite)
+                        {
+                            tempC = map.ElementAt(map.IndexOf(c) - 9);
+                            tempC.AvailableCase = true;
+                            AvailableCases.Add(tempC);
+                        }
+                    }
+                }
+            }else
             {
                 //Vérifier si c'est le premier tour pour le mouvement du pion
-                if ((map.IndexOf(c) - 7) < 0)
+                if (IsOn1(map.IndexOf(c)))
                 {
                     //DEVIENT UNE REEIIIIINE
                 }
@@ -48,45 +79,27 @@ namespace echecEtSharp.Pieces
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        Case tempC = map.ElementAt(map.IndexOf(c) - (7 + i));
-
-                        if ((i == 0 || i == 2) && tempC.Piece != null && !tempC.Piece.IsWhite)
+                        Case tempC;
+                        if (i == 0 && map.ElementAt(map.IndexOf(c) + 8).Piece == null)
                         {
+                            tempC = map.ElementAt(map.IndexOf(c) + 8);
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
                         }
-                        else if (i == 1 && tempC.Piece == null)
+                        else if (i == 1 && map.ElementAt(map.IndexOf(c) + 7).Piece != null && !isOnA(map.IndexOf(c)) && map.ElementAt(map.IndexOf(c) + 7).Piece.IsWhite)
                         {
+                            tempC = map.ElementAt(map.IndexOf(c) + 7);
+                            tempC.AvailableCase = true;
+                            AvailableCases.Add(tempC);
+                        }
+                        else if (i == 2 && map.ElementAt(map.IndexOf(c) + 9).Piece != null && !isOnH(map.IndexOf(c)) && map.ElementAt(map.IndexOf(c) + 9).Piece.IsWhite)
+                        {
+                            tempC = map.ElementAt(map.IndexOf(c) + 9);
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
                         }
                     }
-                }            
-            }
-            else
-            {
-                if ((map.IndexOf(c) + 7) > 64)
-                {
-                    //DEVIENT UNE REEIIIIINE
                 }
-                else
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        Case tempC = map.ElementAt(map.IndexOf(c) + (7 + i));
-
-                        if ((i == 0 || i == 2) && tempC.Piece != null && tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                        }
-                        else if (i == 1 && tempC.Piece == null)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                        }
-                    }
-                }       
             }
         }
     

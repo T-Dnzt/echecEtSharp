@@ -128,6 +128,23 @@ namespace echecEtSharp
             return false;
         }
 
+        public bool isOn8(int index)
+        {
+            if(index < 8)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsOn1(int index)
+        {
+            if(index > 55)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public virtual void Update(GameTime gameTime)
         {
