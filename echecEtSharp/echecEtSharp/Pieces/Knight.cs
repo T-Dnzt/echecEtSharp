@@ -34,7 +34,7 @@ namespace echecEtSharp.Pieces
             {
                 Case tempC;
 
-                if ((i == 1 && map.IndexOf(c) - 17 > 0 && map.IndexOf(c) - 17 < 64) && !isOnA(map.IndexOf(c)))
+                if ((i == 1 && map.IndexOf(c) - 17 >= 0 && map.IndexOf(c) - 17 < 64) && !isOnA(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) - 17);
                     if (tempC.Piece == null || (IsWhite && !tempC.Piece.IsWhite))
@@ -48,7 +48,7 @@ namespace echecEtSharp.Pieces
                         AvailableCases.Add(tempC);
                     }
                 }
-                else if ((i == 2 && map.IndexOf(c) - 15 > 0 && map.IndexOf(c) - 15 < 64) && !isOnH(map.IndexOf(c)))
+                else if ((i == 2 && map.IndexOf(c) - 15 >= 0 && map.IndexOf(c) - 15 < 64) && !isOnH(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) - 15);
                     if (tempC.Piece == null || (IsWhite && !tempC.Piece.IsWhite))
@@ -62,7 +62,7 @@ namespace echecEtSharp.Pieces
                         AvailableCases.Add(tempC);
                     }
                 }
-                else if ((i == 3 && map.IndexOf(c) - 10 > 0 && map.IndexOf(c) - 10 < 64) && !isOnA(map.IndexOf(c)) &&
+                else if ((i == 3 && map.IndexOf(c) - 10 >= 0 && map.IndexOf(c) - 10 < 64) && !isOnA(map.IndexOf(c)) &&
                          !isOnB(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) - 10);
@@ -77,7 +77,7 @@ namespace echecEtSharp.Pieces
                         AvailableCases.Add(tempC);
                     }
                 }
-                else if ((i == 4 && map.IndexOf(c) - 6 > 0 && map.IndexOf(c) - 6 < 64) && !isOnG(map.IndexOf(c)) &&
+                else if ((i == 4 && map.IndexOf(c) - 6 >= 0 && map.IndexOf(c) - 6 < 64) && !isOnG(map.IndexOf(c)) &&
                          !isOnH(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) - 6);
@@ -92,7 +92,7 @@ namespace echecEtSharp.Pieces
                         AvailableCases.Add(tempC);
                     }
                 }
-                else if ((i == 5 && map.IndexOf(c) + 15 > 0 && map.IndexOf(c) + 15 < 64) &&
+                else if ((i == 5 && map.IndexOf(c) + 15 >= 0 && map.IndexOf(c) + 15 < 64) &&
                          !isOnA(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) + 15);
@@ -107,7 +107,7 @@ namespace echecEtSharp.Pieces
                         AvailableCases.Add(tempC);
                     }
                 }
-                else if ((i == 6 && map.IndexOf(c) + 17 > 0 && map.IndexOf(c) + 17 < 64) &&
+                else if ((i == 6 && map.IndexOf(c) + 17 >= 0 && map.IndexOf(c) + 17 < 64) &&
                          !isOnH(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) + 17);
@@ -122,7 +122,7 @@ namespace echecEtSharp.Pieces
                         AvailableCases.Add(tempC);
                     }
                 }
-                else if ((i == 7 && map.IndexOf(c) + 6 > 0 && map.IndexOf(c) + 6 < 64) &&
+                else if ((i == 7 && map.IndexOf(c) + 6 >= 0 && map.IndexOf(c) + 6 < 64) &&
                          !isOnA(map.IndexOf(c)) && !isOnB(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) + 6);
@@ -137,7 +137,7 @@ namespace echecEtSharp.Pieces
                         AvailableCases.Add(tempC);
                     }
                 }
-                else if ((i == 8 && map.IndexOf(c) + 10 > 0 && map.IndexOf(c) + 10 < 64) &&
+                else if ((i == 8 && map.IndexOf(c) + 10 >= 0 && map.IndexOf(c) + 10 < 64) &&
                          !isOnG(map.IndexOf(c)) && !isOnH(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) + 10);

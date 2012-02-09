@@ -68,7 +68,7 @@ namespace echecEtSharp.Pieces
 
                 if ((i == 1) && map.IndexOf(c) + 8 < 64)
                 {
-                    tempC = map.ElementAt(map.IndexOf(c) + 8);  
+                    tempC = map.ElementAt(map.IndexOf(c) + 8);
                     if (IsWhite)
                     {
                         while (tempC.Piece == null || !tempC.Piece.IsWhite)
@@ -99,7 +99,7 @@ namespace echecEtSharp.Pieces
                     }
                 }
 
-                if((i == 2) && !isOnA(map.IndexOf(c)))
+                if ((i == 2) && !isOnA(map.IndexOf(c)))
                 {
                     tempC = map.ElementAt(map.IndexOf(c) - 1);
                     if (IsWhite)
@@ -115,7 +115,8 @@ namespace echecEtSharp.Pieces
                             else
                                 break;
                         }
-                    }else
+                    }
+                    else
                     {
                         while (!isOnA(map.IndexOf(tempC) + 1) && (tempC.Piece == null || tempC.Piece.IsWhite))
                         {
