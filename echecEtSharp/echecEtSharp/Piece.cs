@@ -146,6 +146,24 @@ namespace echecEtSharp
             return false;
         }
 
+        public bool isOn6(int index)
+        {
+            if (index >= 8 && index < 16)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool isOn2(int index)
+        {
+            if (index <= 55 && index > 47)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             //this.center = new Vector2(position.X + texture.Width / 2, position.Y + texture.Height / 2);
