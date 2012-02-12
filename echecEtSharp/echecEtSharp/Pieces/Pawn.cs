@@ -122,19 +122,19 @@ namespace echecEtSharp.Pieces
         //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override List<Case> defineEchecCases(Case king, Case c, List<Case> map)
         {
-            List<Case> echecCases = new List<Case>();
+            var echecCases = new List<Case>();
             if (king.Piece.IsWhite)
             {
-                if (map.IndexOf(c)+7 < 64 && !isOnA(map.IndexOf(c)))
+                if (map.IndexOf(c) + 7 < 64 && !isOnA(map.IndexOf(c)))
                 {
-                    echecCases.Add(map.ElementAt(map.IndexOf(c)+7));
+                    echecCases.Add(map.ElementAt(map.IndexOf(c) + 7));
                 }
                 if (map.IndexOf(c) + 9 < 64 && !isOnH(map.IndexOf(c)))
                 {
                     echecCases.Add(map.ElementAt(map.IndexOf(c) + 9));
                 }
             }
-            else 
+            else
             {
                 if (map.IndexOf(c) - 7 >= 0 && !isOnH(map.IndexOf(c)))
                 {

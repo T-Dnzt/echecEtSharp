@@ -1,69 +1,74 @@
 ﻿using System;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace echecEtSharp
 {
-    class Piece
+    internal class Piece
     {
-        protected Texture2D texture;
-
-        protected Vector2 position;
-        protected Vector2 velocity;
-        protected Vector2 center;
-        protected Vector2 origin;
         protected Vector2 behavior;
 
         protected Rectangle bounds;
-        protected int width;
-        protected int height;
-
-        protected float rotation;
-
-        private Boolean isWhite;
-
-        public Boolean IsWhite
-        {
-            get { return isWhite; }
-            set { isWhite = value; }
-        }
-        protected Boolean isAlive;
         protected Boolean canJump;
+        protected Vector2 center;
 
-        protected Boolean selected;
-
-        //string = once, attack or unlimited, define the number of times the move of int[] can be done
-        protected Dictionary<string, int[]> moveTypes;
-        private List<Case> availableCases;
         private List<Case> echecCases;
+        protected int height;
+        protected Boolean isAlive;
 
         protected int moveTimes;
+        protected Dictionary<string, int[]> moveTypes;
+        protected Vector2 origin;
+        protected Vector2 position;
+        protected float rotation;
+        protected Boolean selected;
         protected float speed;
-
-        public List<Case> AvailableCases
-        {
-            get { return availableCases; }
-            set { availableCases = value; }
-        }
+        protected Texture2D texture;
+        protected Vector2 velocity;
+        protected int width;
 
         public Piece(Texture2D tex, Boolean isWhite, Boolean canJump)
         {
-            this.texture = tex;
-            this.isWhite = isWhite;
-            availableCases = new List<Case>();
+            texture = tex;
+            this.IsWhite = isWhite;
+            AvailableCases = new List<Case>();
             speed = 0.5f;
             velocity = Vector2.Zero;
 
 
             //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
+        }
 
+        public Boolean IsWhite { get; set; }
+        public List<Case> AvailableCases { get; set; }
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+        protected Vector2 Center
+        {
+            get { return center; }
+            set { center = value; }
+        }
+
+        protected Vector2 Behavior
+        {
+            get { return behavior; }
+            set { behavior = value; }
+        }
+
+        public Texture2D Texture
+        {
+            get { return texture; }
         }
 
 
         public virtual void defineAvailableCases(Case c, List<Case> map)
         {
-
         }
 
         public virtual List<Case> defineEchecCases(Case king, Case c, List<Case> map)
@@ -73,7 +78,6 @@ namespace echecEtSharp
 
         public virtual void undefineAvailableCases()
         {
-
         }
 
         public bool isOnA(int index)
@@ -134,7 +138,7 @@ namespace echecEtSharp
 
         public bool isOn8(int index)
         {
-            if(index < 8)
+            if (index < 8)
             {
                 return true;
             }
@@ -143,7 +147,7 @@ namespace echecEtSharp
 
         public bool isOn1(int index)
         {
-            if(index > 55)
+            if (index > 55)
             {
                 return true;
             }
@@ -177,29 +181,5 @@ namespace echecEtSharp
         {
             batch.Draw(texture, rec, Color.White);
         }
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
-        protected Vector2 Center
-        {
-            get { return center; }
-            set { center = value; }
-        }
-
-        protected Vector2 Behavior
-        {
-            get { return behavior; }
-            set { behavior = value; }
-        }
-
-        public Texture2D Texture
-        {
-            get { return texture; }
-        }
-
     }
 }

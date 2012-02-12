@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace echecEtSharp.Pieces
 {
-
-    class Queen : Piece
+    internal class Queen : Piece
     {
         public Queen(Texture2D tex, Boolean isWhite, Boolean canJump)
             : base(tex, isWhite, canJump)
         {
-
         }
 
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime);
         }
 
@@ -338,7 +333,7 @@ namespace echecEtSharp.Pieces
         //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override List<Case> defineEchecCases(Case king, Case c, List<Case> map)
         {
-            List<Case> echecCases = new List<Case>();
+            var echecCases = new List<Case>();
             for (int i = 0; i < 8; i++)
             {
                 Case tempC;
@@ -687,8 +682,5 @@ namespace echecEtSharp.Pieces
             }
             return echecCases;
         }
-
-     
     }
-    
 }
