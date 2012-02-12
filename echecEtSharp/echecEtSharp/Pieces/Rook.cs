@@ -165,6 +165,174 @@ namespace echecEtSharp.Pieces
                     }
                 }
             }
+
+
+        }
+
+        //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
+        public override List<Case> defineEchecCases(Case king, Case c, List<Case> map)
+        {
+            List<Case> echecCases = new List<Case>();
+            for (int i = 0; i < 4; i++)
+            {
+                Case tempC;
+                if ((i == 0) && map.IndexOf(c) - 8 >= 0)
+                {
+                    tempC = map.ElementAt(map.IndexOf(c) - 8);
+                    if (IsWhite)
+                    {
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        {
+                            echecCases.Add(tempC);
+                            if ((map.IndexOf(tempC) - 8) >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 8);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) - 8 >= 0)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 8);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        {
+                            echecCases.Add(tempC);
+                            if ((map.IndexOf(tempC) - 8) >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 8);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) - 8 >= 0)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 8);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                }
+
+                if ((i == 1) && map.IndexOf(c) + 8 < 64)
+                {
+                    tempC = map.ElementAt(map.IndexOf(c) + 8);
+                    if (IsWhite)
+                    {
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        {
+                            echecCases.Add(tempC);
+                            if ((map.IndexOf(tempC) + 8) < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 8);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) + 8 < 64)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 8);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        {
+                            echecCases.Add(tempC);
+                            if ((map.IndexOf(tempC) + 8) < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 8);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) + 8 < 64)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 8);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                }
+
+                if ((i == 2) && !isOnA(map.IndexOf(c)))
+                {
+                    tempC = map.ElementAt(map.IndexOf(c) - 1);
+                    if (IsWhite)
+                    {
+                        while (!isOnA(map.IndexOf(tempC) + 1) && (tempC.Piece == null || !tempC.Piece.IsWhite))
+                        {
+                            echecCases.Add(tempC);
+                            if (map.IndexOf(tempC) - 1 >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 1);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) - 1 >= 0)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 1);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        while (!isOnA(map.IndexOf(tempC) + 1) && (tempC.Piece == null || tempC.Piece.IsWhite))
+                        {
+                            echecCases.Add(tempC);
+                            if (map.IndexOf(tempC) - 1 >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 1);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) - 1 >= 0)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) - 1);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                }
+
+                if ((i == 3) && !isOnH(map.IndexOf(c)))
+                {
+                    tempC = map.ElementAt(map.IndexOf(c) + 1);
+                    if (IsWhite)
+                    {
+                        while (!isOnH(map.IndexOf(tempC) - 1) && (tempC.Piece == null || !tempC.Piece.IsWhite))
+                        {
+                            echecCases.Add(tempC);
+                            if (map.IndexOf(tempC) + 1 < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 1);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) + 1 < 64)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 1);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        while (!isOnH(map.IndexOf(tempC) - 1) && (tempC.Piece == null || tempC.Piece.IsWhite))
+                        {
+                            echecCases.Add(tempC);
+                            if (map.IndexOf(tempC) + 1 < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite))
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 1);
+                            }
+                            else if (tempC.Piece is King && map.IndexOf(tempC) + 1 < 64)
+                            {
+                                tempC = map.ElementAt(map.IndexOf(tempC) + 1);
+                            }
+                            else
+                                break;
+                        }
+                    }
+                }
+            }
+            return echecCases;
         }
     }
 }

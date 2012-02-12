@@ -36,6 +36,7 @@ namespace echecEtSharp
         //string = once, attack or unlimited, define the number of times the move of int[] can be done
         protected Dictionary<string, int[]> moveTypes;
         private List<Case> availableCases;
+        private List<Case> echecCases;
 
         protected int moveTimes;
         protected float speed;
@@ -46,15 +47,13 @@ namespace echecEtSharp
             set { availableCases = value; }
         }
 
-
         public Piece(Texture2D tex, Boolean isWhite, Boolean canJump)
         {
             this.texture = tex;
             this.isWhite = isWhite;
-
-            this.availableCases = new List<Case>();
-            this.speed = 0.5f;
-            this.velocity = Vector2.Zero;
+            availableCases = new List<Case>();
+            speed = 0.5f;
+            velocity = Vector2.Zero;
 
 
             //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
@@ -65,6 +64,11 @@ namespace echecEtSharp
         public virtual void defineAvailableCases(Case c, List<Case> map)
         {
 
+        }
+
+        public virtual List<Case> defineEchecCases(Case king, Case c, List<Case> map)
+        {
+            return new List<Case>();
         }
 
         public virtual void undefineAvailableCases()
