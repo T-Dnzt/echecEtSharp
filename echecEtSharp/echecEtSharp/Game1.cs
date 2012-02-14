@@ -116,11 +116,11 @@ namespace echecEtSharp
             map.CaseList.ElementAt(58).Piece = player1.Bishops.ElementAt(0);
             map.CaseList.ElementAt(2).Piece = player2.Bishops.ElementAt(0);
 
-            map.CaseList.ElementAt(59).Piece = player1.King;
-            map.CaseList.ElementAt(3).Piece = player2.King;
+            map.CaseList.ElementAt(59).Piece = player1.Queen;
+            map.CaseList.ElementAt(3).Piece = player2.Queen;
 
-            map.CaseList.ElementAt(60).Piece = player1.Queen;
-            map.CaseList.ElementAt(4).Piece = player2.Queen;
+            map.CaseList.ElementAt(60).Piece = player1.King;
+            map.CaseList.ElementAt(4).Piece = player2.King;
 
             map.CaseList.ElementAt(61).Piece = player1.Bishops.ElementAt(1);
             map.CaseList.ElementAt(5).Piece = player2.Bishops.ElementAt(1);

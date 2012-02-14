@@ -47,15 +47,6 @@
       <Time>2012-01-18T16:42:15.5171172+01:00</Time>
     </Item>
     <Item>
-      <Source>blackking.png</Source>
-      <Name>blackking</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackking.xnb</Output>
-      <Time>2012-01-20T23:26:21.3895081+01:00</Time>
-    </Item>
-    <Item>
       <Source>blackknight.png</Source>
       <Name>blackknight</Name>
       <Importer>TextureImporter</Importer>
@@ -80,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackqueen.xnb</Output>
-      <Time>2012-01-20T23:26:21.4075092+01:00</Time>
+      <Time>2012-02-14T23:10:25.4578826+01:00</Time>
     </Item>
     <Item>
       <Source>blackrook.png</Source>
@@ -125,7 +116,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whiteking.xnb</Output>
-      <Time>2012-01-20T23:19:44.756822+01:00</Time>
+      <Time>2012-02-14T23:10:42.0238301+01:00</Time>
     </Item>
     <Item>
       <Source>whiteknight.png</Source>
@@ -143,7 +134,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\whitequeen.xnb</Output>
-      <Time>2012-01-20T23:19:44.8108251+01:00</Time>
+      <Time>2012-02-14T23:10:46.7481003+01:00</Time>
     </Item>
     <Item>
       <Source>whiterook.png</Source>
@@ -162,6 +153,15 @@
       <Options>None</Options>
       <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\red.xnb</Output>
       <Time>2012-02-06T23:05:17.5540947+01:00</Time>
+    </Item>
+    <Item>
+      <Source>blackking.png</Source>
+      <Name>blackking</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\blackking.xnb</Output>
+      <Time>2012-02-14T23:11:03.4340547+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
