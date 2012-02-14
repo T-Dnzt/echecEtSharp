@@ -199,7 +199,7 @@ namespace echecEtSharp.Pieces
         }
 
         //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
-        public override List<Case> defineEchecCases(Case king, Case c, List<Case> map)
+        public override List<Case> defineEchecCases(Boolean white, Case king, Case c, List<Case> map)
         {
             var echecCases = new List<Case>();
             for (int i = 0; i < 4; i++)

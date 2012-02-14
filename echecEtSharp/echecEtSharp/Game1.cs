@@ -178,6 +178,7 @@ namespace echecEtSharp
                     if (selectedC.Piece.AvailableCases.Contains(clickedCase))
                     {
                         clickedCase.Piece = selectedC.Piece;
+                        clickedCase.Piece.NumberOfMouvs += 1;
                         selectedC.Piece.undefineAvailableCases();
                         selectedC.Piece = null;
                         map.unSelectCase();

@@ -1,6 +1,7 @@
 ﻿ using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+ using System.Linq;
+ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace echecEtSharp
@@ -27,6 +28,8 @@ namespace echecEtSharp
         protected Texture2D texture;
         protected Vector2 velocity;
         protected int width;
+        protected int numberOfMouvs;
+
 
         public Piece(Texture2D tex, Boolean isWhite, Boolean canJump)
         {
@@ -35,13 +38,54 @@ namespace echecEtSharp
             AvailableCases = new List<Case>();
             speed = 0.5f;
             velocity = Vector2.Zero;
+            numberOfMouvs = 0;
 
 
             //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
 
+        public bool isInEchec(Boolean white, Case c, List<Case> map)
+        {
+            var echecCases = new List<Case>();
+            var tempEchecCases = new List<Case>();
+            //Vérifier si c'est le premier tour pour le mouvement du pion
+
+            if (white)
+            {
+                tempEchecCases = (from cCase in map
+                                  where cCase.Piece != null &&
+                                        !cCase.Piece.IsWhite
+                                  select cCase).ToList();
+            }
+            else
+            {
+                tempEchecCases = (from cCase in map
+                                  where cCase.Piece != null &&
+                                        cCase.Piece.IsWhite
+                                  select cCase).ToList();
+            }
+
+            foreach (Case cases in tempEchecCases)
+            {
+                List<Case> u = cases.Piece.defineEchecCases(white, c, cases, map);
+                foreach (Case a in u)
+                {
+                    echecCases.Add(a);
+                }
+            }
+
+            if (echecCases.Contains(c))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Boolean IsWhite { get; set; }
+        public Boolean IsLittleRockPossible { get; set; }
+        public Boolean IsBigRockPossible { get; set; }
         public List<Case> AvailableCases { get; set; }
+        
 
         public Vector2 Position
         {
@@ -66,12 +110,18 @@ namespace echecEtSharp
             get { return texture; }
         }
 
+        public int NumberOfMouvs
+        {
+            get { return numberOfMouvs; }
+            set { numberOfMouvs = value; }
+
+        }
 
         public virtual void defineAvailableCases(Case c, List<Case> map)
         {
         }
 
-        public virtual List<Case> defineEchecCases(Case king, Case c, List<Case> map)
+        public virtual List<Case> defineEchecCases(Boolean white, Case king, Case c, List<Case> map)
         {
             return new List<Case>();
         }
