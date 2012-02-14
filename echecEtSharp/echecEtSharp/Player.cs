@@ -72,6 +72,11 @@ namespace echecEtSharp
             this.isWhitePlayer = isWhitePlayer;
             pieceTextures = new Dictionary<String, Texture2D>();
 
+            if (this.isWhitePlayer)
+                this.turnToPlay = true;
+            else
+                this.turnToPlay = false;
+
         }
 
         public void createPieces(string color, bool whiteC)

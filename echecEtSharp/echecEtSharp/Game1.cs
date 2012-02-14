@@ -26,6 +26,8 @@ namespace echecEtSharp
         MouseState mouseState;
         MouseState oldState;
 
+        Boolean gameTurn;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,6 +40,8 @@ namespace echecEtSharp
             map = new Map();
             player1 = new Player(1, true);
             player2 = new Player(2, false);
+
+            gameTurn = true;
         }
 
         /// <summary>
@@ -171,25 +175,27 @@ namespace echecEtSharp
                 {
                     Case clickedCase = map.getCase(mouseState.X, mouseState.Y);
 
-                    
-
                     if (selectedC.Piece.AvailableCases.Contains(clickedCase))
                     {
                         clickedCase.Piece = selectedC.Piece;
                         selectedC.Piece.undefineAvailableCases();
                         selectedC.Piece = null;
                         map.unSelectCase();
+                        gameTurn = !gameTurn;
                     }
                     else
                     {
                         selectedC.Piece.undefineAvailableCases();
                         map.unSelectCase();
+                    
                     }
+
+                  
                     
                 }
                 else
                 {
-                    if (map.getCase(mouseState.X, mouseState.Y).Piece is Piece)
+                    if (map.getCase(mouseState.X, mouseState.Y, gameTurn) != null && map.getCase(mouseState.X, mouseState.Y, gameTurn).Piece != null)
                     {
                         map.selectCase(mouseState.X, mouseState.Y);
                     }

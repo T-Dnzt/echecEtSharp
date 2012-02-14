@@ -122,6 +122,24 @@ namespace echecEtSharp
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     return c;
+                }
+            }
+            return null;
+        }
+
+        public Case getCase(int x, int y, bool gameTurn)
+        {
+            foreach (Case c in caseList)
+            {
+                if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
+                {
+                    if (c.Piece != null)
+                        if ((gameTurn && c.Piece.IsWhite) || (!gameTurn && !c.Piece.IsWhite))
+                            return c;
+                        else
+                            return null;
+                    else
+                        return c;
 
                 }
             }
@@ -134,12 +152,13 @@ namespace echecEtSharp
             {
                 if (c.SelectedCase.Equals(true))
                 {
-                    return c;
+                        return c;
                 }
             }
-
             return null;
         }
+
+      
 
         public void DrawCases(SpriteBatch batch)
         {
