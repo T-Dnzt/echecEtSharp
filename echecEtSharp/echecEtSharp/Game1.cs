@@ -21,7 +21,8 @@ namespace echecEtSharp
 
         SpriteFont font;
 
-        Piece selectedPiece;
+        Texture2D blackTexture;
+        Texture2D whitetexture;
 
         MouseState mouseState;
         MouseState oldState;
@@ -71,6 +72,8 @@ namespace echecEtSharp
             Texture2D greyC = Content.Load<Texture2D>("grey");
             Texture2D blueC = Content.Load<Texture2D>("blue");
             Texture2D redC = Content.Load<Texture2D>("red");
+
+            whitetexture = whiteC;
 
             map.AddTexture(whiteC);
             map.AddTexture(greyC);
@@ -210,6 +213,21 @@ namespace echecEtSharp
             base.Update(gameTime);
         }
 
+        private void DrawTurnInfo(SpriteBatch batch)
+        {
+            if (gameTurn)
+            {
+                batch.Draw(whitetexture, new Rectangle(220, 500, 50, 50), Color.White);
+                batch.DrawString(font, "White", new Vector2(227, 518), Color.Black);
+            }
+            else
+            {
+                batch.Draw(whitetexture, new Rectangle(220, 500, 50, 50), Color.White);
+                batch.DrawString(font, "Black", new Vector2(230, 518), Color.Black);
+            }
+     
+      
+        }
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -221,9 +239,9 @@ namespace echecEtSharp
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-
+           
             map.Draw(spriteBatch);
-
+            DrawTurnInfo(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

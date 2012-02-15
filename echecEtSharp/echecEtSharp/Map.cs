@@ -20,8 +20,6 @@ namespace echecEtSharp
             {1,0,1,0,1,0,1,0},
         };
 
-        private int iterator = 1;
-
         private List<Case> caseList;
 
         public List<Case> CaseList
@@ -35,10 +33,9 @@ namespace echecEtSharp
 
         public Map()
         {
-            tileTextures = new List<Texture2D>();
-            alpha = new List<String>() { "a", "b", "c", "d", "e", "f", "g", "h" };
-            caseList = new List<Case>();
-
+            this.tileTextures = new List<Texture2D>();
+            this.alpha = new List<String>() { "a", "b", "c", "d", "e", "f", "g", "h" };
+            this.caseList = new List<Case>();
         }
 
         public void generateMap()
@@ -48,12 +45,9 @@ namespace echecEtSharp
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
-                {
-                    int textureIndex = mapArray[y, x];
-
-                    Case newCase = new Case(tileTextures[textureIndex], tileTextures[2], tileTextures[3], 50 + y * 50, 50 + x * 50, 50, 50, alpha.ElementAt(x), columnNum.ToString());
+                {                 
+                    Case newCase = new Case(tileTextures[mapArray[y, x]], tileTextures[2], tileTextures[3], 50 + y * 50, 50 + x * 50, 50, 50, alpha.ElementAt(x), columnNum.ToString());
                     caseList.Add(newCase);
-
                     columnNum--;
                 }
             }
@@ -90,7 +84,6 @@ namespace echecEtSharp
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     return true;
-
                 }
             }
             return false;
@@ -99,8 +92,7 @@ namespace echecEtSharp
         public void unSelectCase()
         {
             Case sc = getSelectedCase();
-            sc.SelectedCase = false;
-           
+            sc.SelectedCase = false;         
         }
 
         public void selectCase(int x, int y)
