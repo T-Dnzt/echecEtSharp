@@ -30,33 +30,42 @@ namespace echecEtSharp.Pieces
         //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override void defineAvailableCases(Case c, List<Case> map)
         {
-            if (c.Piece.IsWhite && isOnA(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 && map.ElementAt(60).Piece != null &&
+            if (c.Piece.IsWhite && isOnA(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 &&
+                map.ElementAt(60).Piece != null &&
                 map.ElementAt(60).Piece is King && map.ElementAt(60).Piece.NumberOfMouvs == 0 &&
-                !isInEchec(true, map.ElementAt(60), map) && !isInEchec(true, map.ElementAt(58), map) && map.ElementAt(59).Piece == null && map.ElementAt(58).Piece == null && map.ElementAt(57).Piece == null)
+                !isInEchec(true, map.ElementAt(60), map) && !isInEchec(true, map.ElementAt(58), map) &&
+                map.ElementAt(59).Piece == null && map.ElementAt(58).Piece == null && map.ElementAt(57).Piece == null)
             {
                 //grand roque blanc
-                IsBigRockPossible = true;
+                map.ElementAt(60).IsBigRockPossible = true;
             }
-            else if (c.Piece.IsWhite && isOnH(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 && map.ElementAt(60).Piece != null &&
+            else if (c.Piece.IsWhite && isOnH(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 &&
+                     map.ElementAt(60).Piece != null &&
                      map.ElementAt(60).Piece is King && map.ElementAt(60).Piece.NumberOfMouvs == 0 &&
-                     !isInEchec(true, map.ElementAt(60), map) && !isInEchec(true, map.ElementAt(62), map) && map.ElementAt(62).Piece == null && map.ElementAt(61).Piece == null)
+                     !isInEchec(true, map.ElementAt(60), map) && !isInEchec(true, map.ElementAt(62), map) &&
+                     map.ElementAt(62).Piece == null && map.ElementAt(61).Piece == null)
             {
                 //petit roque blanc
-                IsLittleRockPossible = true;
+                map.ElementAt(60).IsLittleRockPossible = true;
             }
-            else if (!c.Piece.IsWhite && isOnH(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 && map.ElementAt(4).Piece != null &&
+            else if (!c.Piece.IsWhite && isOnH(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 &&
+                     map.ElementAt(4).Piece != null &&
                      map.ElementAt(4).Piece is King && map.ElementAt(4).Piece.NumberOfMouvs == 0 &&
-                     !isInEchec(false, map.ElementAt(4), map) && !isInEchec(false, map.ElementAt(6), map) && map.ElementAt(6).Piece == null && map.ElementAt(5).Piece == null)
+                     !isInEchec(false, map.ElementAt(4), map) && !isInEchec(false, map.ElementAt(6), map) &&
+                     map.ElementAt(6).Piece == null && map.ElementAt(5).Piece == null)
             {
                 //petit roque noir
-                IsLittleRockPossible = true;
+                map.ElementAt(4).IsLittleRockPossible = true;
             }
-            else if (!c.Piece.IsWhite && isOnA(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 && map.ElementAt(4).Piece != null &&
-                map.ElementAt(4).Piece is King && map.ElementAt(4).Piece.NumberOfMouvs == 0 &&
-                !isInEchec(false, map.ElementAt(4), map) && !isInEchec(false, map.ElementAt(2), map) && map.ElementAt(3).Piece == null && map.ElementAt(2).Piece == null && map.ElementAt(1).Piece == null)
+            else if (!c.Piece.IsWhite && isOnA(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 &&
+                     map.ElementAt(4).Piece != null &&
+                     map.ElementAt(4).Piece is King && map.ElementAt(4).Piece.NumberOfMouvs == 0 &&
+                     !isInEchec(false, map.ElementAt(4), map) && !isInEchec(false, map.ElementAt(2), map) &&
+                     map.ElementAt(3).Piece == null && map.ElementAt(2).Piece == null &&
+                     map.ElementAt(1).Piece == null)
             {
                 //grand roque noir
-                IsBigRockPossible = true;
+                map.ElementAt(4).IsBigRockPossible = true;
             }
 
             for (int i = 0; i < 4; i++)

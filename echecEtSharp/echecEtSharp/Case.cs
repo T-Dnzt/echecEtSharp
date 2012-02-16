@@ -73,6 +73,9 @@ namespace echecEtSharp
         private string letterIdentifier;
         private string numberIdentifier;
 
+        public Boolean IsLittleRockPossible { get; set; }
+        public Boolean IsBigRockPossible { get; set; }
+
         public Case(Texture2D texture, Texture2D selectedTex, Texture2D availableTex, int x, int y, int width, int height, string letterId, string numberId)
         {
             caseRec = new Rectangle(x, y, width, height);
@@ -83,6 +86,9 @@ namespace echecEtSharp
             numberIdentifier = numberId;
             piece = null;
             this.availableCase = false;
+            IsBigRockPossible = false;
+            IsLittleRockPossible = false;
+            
         }
 
         public void Draw(SpriteBatch batch)
@@ -101,13 +107,19 @@ namespace echecEtSharp
 
             if (piece != null)
             {
-                piece.Draw(batch, caseRec);
+                if (IsBigRockPossible || IsLittleRockPossible)
+                {
+                    if (Piece.IsWhite)
+                    {
+                        batch.Draw(rockTexture, caseRec, Color.White);
+                    }
+                    else 
+                    {
+                        batch.Draw(rockTexture, caseRec, Color.White);
+                    }
+                }
+                piece.Draw(batch, caseRec);    
             }
-
-
         }
-
-
-
     }
 }

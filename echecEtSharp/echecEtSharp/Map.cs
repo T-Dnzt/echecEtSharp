@@ -183,6 +183,11 @@ namespace echecEtSharp
             }
         }
 
+        public static Case getKingOriginCase(Boolean white)
+        {
+            return null;
+        }
+
         // public 
         public void Draw(SpriteBatch batch)
         {

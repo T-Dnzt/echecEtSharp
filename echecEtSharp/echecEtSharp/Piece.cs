@@ -39,7 +39,7 @@ namespace echecEtSharp
             speed = 0.5f;
             velocity = Vector2.Zero;
             numberOfMouvs = 0;
-
+            
 
             //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
@@ -82,8 +82,6 @@ namespace echecEtSharp
         }
 
         public Boolean IsWhite { get; set; }
-        public Boolean IsLittleRockPossible { get; set; }
-        public Boolean IsBigRockPossible { get; set; }
         public List<Case> AvailableCases { get; set; }
         
 

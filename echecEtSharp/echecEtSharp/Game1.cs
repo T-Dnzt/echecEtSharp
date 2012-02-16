@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -179,7 +180,6 @@ namespace echecEtSharp
                 if (selectedC != null)
                 {
                     Case clickedCase = map.getCase(mouseState.X, mouseState.Y);
-
                     if (selectedC.Piece.AvailableCases.Contains(clickedCase))
                     {
                         clickedCase.Piece = selectedC.Piece;
@@ -188,16 +188,73 @@ namespace echecEtSharp
                         selectedC.Piece = null;
                         map.unSelectCase();
                         gameTurn = !gameTurn;
+                    }else if (clickedCase.IsBigRockPossible)
+                    {
+                        if(selectedC.Piece.IsWhite)
+                        {
+                            clickedCase.IsBigRockPossible = false;
+                            selectedC.Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(59).Piece = map.CaseList.ElementAt(56).Piece;
+                            selectedC.Piece.undefineAvailableCases();
+                            selectedC.Piece = null;
+                            map.CaseList.ElementAt(58).Piece = map.CaseList.ElementAt(60).Piece;
+                            map.CaseList.ElementAt(58).Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(60).Piece = null;
+                            map.unSelectCase();
+                            gameTurn = !gameTurn;
+                        }
+                        else
+                        {
+                            clickedCase.IsBigRockPossible = false;
+                            selectedC.Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(3).Piece = map.CaseList.ElementAt(0).Piece;
+                            selectedC.Piece.undefineAvailableCases();
+                            map.CaseList.ElementAt(0).Piece = null;
+                            map.CaseList.ElementAt(2).Piece = map.CaseList.ElementAt(4).Piece;
+                            map.CaseList.ElementAt(2).Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(4).Piece = null;
+                            map.unSelectCase();
+                            gameTurn = !gameTurn;
+                        }
+                    }else if (clickedCase.IsLittleRockPossible)
+                    {
+                        if (selectedC.Piece.IsWhite)
+                        {
+                            clickedCase.IsLittleRockPossible = false;
+                            selectedC.Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(61).Piece = map.CaseList.ElementAt(63).Piece;
+                            selectedC.Piece.undefineAvailableCases();
+                            map.CaseList.ElementAt(63).Piece = null;
+                            map.CaseList.ElementAt(62).Piece = map.CaseList.ElementAt(60).Piece;
+                            map.CaseList.ElementAt(62).Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(60).Piece = null;
+                            map.unSelectCase();
+                            gameTurn = !gameTurn;
+                        }
+                        else
+                        {
+                            clickedCase.IsLittleRockPossible = false;
+                            selectedC.Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(5).Piece = map.CaseList.ElementAt(7).Piece;
+                            selectedC.Piece.undefineAvailableCases();
+                            map.CaseList.ElementAt(7).Piece = null;
+                            map.CaseList.ElementAt(6).Piece = map.CaseList.ElementAt(4).Piece;
+                            map.CaseList.ElementAt(6).Piece.NumberOfMouvs += 1;
+                            map.CaseList.ElementAt(4).Piece = null;
+                            map.unSelectCase();
+                            gameTurn = !gameTurn;
+                        }
                     }
                     else
                     {
                         selectedC.Piece.undefineAvailableCases();
                         map.unSelectCase();
-                    
-                    }
-
-                  
-                    
+                        foreach (Case cCase in map.CaseList)
+                        {
+                            cCase.IsBigRockPossible = false;
+                            cCase.IsLittleRockPossible = false;
+                        }
+                    } 
                 }
                 else
                 {

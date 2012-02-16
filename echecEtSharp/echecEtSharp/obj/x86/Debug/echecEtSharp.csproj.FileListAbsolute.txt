@@ -77,3 +77,5 @@ D:\proj\c#\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\ResolveAssemblyR
 D:\proj\c#\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\proj\c#\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.exe
 D:\proj\c#\echecEtSharp\echecEtSharp\echecEtSharp\obj\x86\Debug\echecEtSharp.pdb
+D:\proj\c#\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\black.xnb
+D:\proj\c#\echecEtSharp\echecEtSharp\echecEtSharp\bin\x86\Debug\Content\green.xnb
