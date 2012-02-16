@@ -30,7 +30,7 @@ namespace echecEtSharp.Pieces
         //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override void defineAvailableCases(Case c, List<Case> map)
         {
-            if (c.Piece.IsWhite && map.ElementAt(63).Piece.NumberOfMouvs == 0 &&
+            if (c.Piece.IsWhite && map.ElementAt(63).Piece != null && map.ElementAt(63).Piece.NumberOfMouvs == 0 &&
                 map.ElementAt(60).Piece != null &&
                 map.ElementAt(60).Piece is King && map.ElementAt(60).Piece.NumberOfMouvs == 0 &&
                 !isInEchec(true, map.ElementAt(60), map) && !isInEchec(true, map.ElementAt(58), map) &&
@@ -39,7 +39,7 @@ namespace echecEtSharp.Pieces
                 //grand roque blanc
                 map.ElementAt(56).IsBigRockPossible = true;
             }
-            else if (c.Piece.IsWhite && map.ElementAt(56).Piece.NumberOfMouvs == 0 &&
+            else if (c.Piece.IsWhite && map.ElementAt(56).Piece != null && map.ElementAt(56).Piece.NumberOfMouvs == 0 &&
                      map.ElementAt(60).Piece != null &&
                      map.ElementAt(60).Piece is King && map.ElementAt(60).Piece.NumberOfMouvs == 0 &&
                      !isInEchec(true, map.ElementAt(60), map) && !isInEchec(true, map.ElementAt(62), map) &&
@@ -48,7 +48,7 @@ namespace echecEtSharp.Pieces
                 //petit roque blanc
                 map.ElementAt(63).IsLittleRockPossible = true;
             }
-            else if (!c.Piece.IsWhite && map.ElementAt(7).Piece.NumberOfMouvs == 0 &&
+            else if (!c.Piece.IsWhite && map.ElementAt(7).Piece != null && map.ElementAt(7).Piece.NumberOfMouvs == 0 &&
                      map.ElementAt(4).Piece != null &&
                      map.ElementAt(4).Piece is King && map.ElementAt(4).Piece.NumberOfMouvs == 0 &&
                      !isInEchec(false, map.ElementAt(4), map) && !isInEchec(false, map.ElementAt(6), map) &&
@@ -57,7 +57,7 @@ namespace echecEtSharp.Pieces
                 //petit roque noir
                 map.ElementAt(7).IsLittleRockPossible = true;
             }
-            else if (!c.Piece.IsWhite && map.ElementAt(0).Piece.NumberOfMouvs == 0 &&
+            else if (!c.Piece.IsWhite && map.ElementAt(0).Piece != null && map.ElementAt(0).Piece.NumberOfMouvs == 0 &&
                      map.ElementAt(4).Piece != null &&
                      map.ElementAt(4).Piece is King && map.ElementAt(4).Piece.NumberOfMouvs == 0 &&
                      !isInEchec(false, map.ElementAt(4), map) && !isInEchec(false, map.ElementAt(2), map) &&
