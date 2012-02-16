@@ -73,6 +73,7 @@ namespace echecEtSharp
             Texture2D blueC = Content.Load<Texture2D>("blue");
             Texture2D redC = Content.Load<Texture2D>("red");
 
+            blackTexture = Content.Load<Texture2D>("black");
             whitetexture = whiteC;
 
             map.AddTexture(whiteC);
@@ -222,8 +223,8 @@ namespace echecEtSharp
             }
             else
             {
-                batch.Draw(whitetexture, new Rectangle(220, 500, 50, 50), Color.White);
-                batch.DrawString(font, "Black", new Vector2(230, 518), Color.Black);
+                batch.Draw(blackTexture, new Rectangle(220, 500, 50, 50), Color.White);
+                batch.DrawString(font, "Black", new Vector2(230, 518), Color.White);
             }
      
       
