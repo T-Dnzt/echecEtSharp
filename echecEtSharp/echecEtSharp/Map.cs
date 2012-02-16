@@ -47,6 +47,7 @@ namespace echecEtSharp
                 for (int y = 0; y < Height; y++)
                 {                 
                     Case newCase = new Case(tileTextures[mapArray[y, x]], tileTextures[2], tileTextures[3], 50 + y * 50, 50 + x * 50, 50, 50, alpha.ElementAt(x), columnNum.ToString());
+                    newCase.RockTexture = tileTextures[4];
                     caseList.Add(newCase);
                     columnNum--;
                 }

@@ -62,7 +62,13 @@ namespace echecEtSharp
             set { availableTexture = value; }
         }
 
-       
+        private Texture2D rockTexture;
+
+        public Texture2D RockTexture
+        {
+            get { return rockTexture; }
+            set { rockTexture = value; }
+        }
 
         private string letterIdentifier;
         private string numberIdentifier;
@@ -97,6 +103,8 @@ namespace echecEtSharp
             {
                 piece.Draw(batch, caseRec);
             }
+
+
         }
 
 

@@ -72,7 +72,7 @@ namespace echecEtSharp
             Texture2D greyC = Content.Load<Texture2D>("grey");
             Texture2D blueC = Content.Load<Texture2D>("blue");
             Texture2D redC = Content.Load<Texture2D>("red");
-
+            Texture2D greenC = Content.Load<Texture2D>("green");
             blackTexture = Content.Load<Texture2D>("black");
             whitetexture = whiteC;
 
@@ -80,6 +80,7 @@ namespace echecEtSharp
             map.AddTexture(greyC);
             map.AddTexture(blueC);
             map.AddTexture(redC);
+            map.AddTexture(greenC);
             map.generateMap();
 
 
