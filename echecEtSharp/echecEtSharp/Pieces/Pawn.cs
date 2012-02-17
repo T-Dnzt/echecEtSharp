@@ -11,10 +11,7 @@ namespace echecEtSharp.Pieces
         public Pawn(Texture2D tex, Boolean isWhite, Boolean canJump)
             : base(tex, isWhite, canJump)
         {
-            moveTypes = new Dictionary<string, int[]>();
 
-            moveTypes.Add("once", new[] {0, 1});
-            moveTypes.Add("attack", new[] {1, 1});
         }
 
         public override void Update(GameTime gameTime)
@@ -118,6 +115,7 @@ namespace echecEtSharp.Pieces
                 }
             }
         }
+
 
         //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override List<Case> defineEchecCases(Boolean white, Case king, Case c, List<Case> map)

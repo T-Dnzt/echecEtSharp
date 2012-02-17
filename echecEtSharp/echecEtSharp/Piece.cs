@@ -8,47 +8,39 @@ namespace echecEtSharp
 {
     internal class Piece
     {
-        protected Vector2 behavior;
 
-        protected Rectangle bounds;
-        protected Boolean canJump;
-        protected Vector2 center;
-
-        private List<Case> echecCases;
-        protected int height;
-        protected Boolean isAlive;
-
-        protected int moveTimes;
-        protected Dictionary<string, int[]> moveTypes;
-        protected Vector2 origin;
         protected Vector2 position;
-        protected float rotation;
-        protected Boolean selected;
-        protected float speed;
         protected Texture2D texture;
-        protected Vector2 velocity;
-        protected int width;
         protected int numberOfMouvs;
+        public Boolean IsWhite { get; set; }
+        public List<Case> AvailableCases { get; set; }
+
+
+        public Texture2D Texture
+        {
+            get { return texture; }
+        }
+
+        public int NumberOfMouvs
+        {
+            get { return numberOfMouvs; }
+            set { numberOfMouvs = value; }
+
+        }
 
 
         public Piece(Texture2D tex, Boolean isWhite, Boolean canJump)
         {
-            texture = tex;
+            this.texture = tex;
             this.IsWhite = isWhite;
-            AvailableCases = new List<Case>();
-            speed = 0.5f;
-            velocity = Vector2.Zero;
-            numberOfMouvs = 0;
-            
-
-            //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
+            this.AvailableCases = new List<Case>();
+            this.numberOfMouvs = 0;
         }
 
         public bool isInEchec(Boolean white, Case c, List<Case> map)
         {
             var echecCases = new List<Case>();
             var tempEchecCases = new List<Case>();
-            //Vérifier si c'est le premier tour pour le mouvement du pion
 
             if (white)
             {
@@ -81,40 +73,6 @@ namespace echecEtSharp
             return false;
         }
 
-        public Boolean IsWhite { get; set; }
-        public List<Case> AvailableCases { get; set; }
-        
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
-        protected Vector2 Center
-        {
-            get { return center; }
-            set { center = value; }
-        }
-
-        protected Vector2 Behavior
-        {
-            get { return behavior; }
-            set { behavior = value; }
-        }
-
-        public Texture2D Texture
-        {
-            get { return texture; }
-        }
-
-        public int NumberOfMouvs
-        {
-            get { return numberOfMouvs; }
-            set { numberOfMouvs = value; }
-
-        }
-
         public virtual void defineAvailableCases(Case c, List<Case> map)
         {
         }
@@ -126,6 +84,7 @@ namespace echecEtSharp
 
         public virtual void undefineAvailableCases()
         {
+
         }
 
         public bool isOnA(int index)
@@ -222,7 +181,7 @@ namespace echecEtSharp
 
         public virtual void Update(GameTime gameTime)
         {
-            //this.center = new Vector2(position.X + texture.Width / 2, position.Y + texture.Height / 2);
+
         }
 
         public void Draw(SpriteBatch batch, Rectangle rec)
