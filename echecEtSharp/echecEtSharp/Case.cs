@@ -6,86 +6,31 @@ namespace echecEtSharp
 {
     class Case
     {
-
-        private Piece piece;
-
-        public Piece Piece
-        {
-            get { return piece; }
-            set { piece = value; }
-        }
-
-
-        private Rectangle caseRec;
-
-        public Rectangle CaseRectangle
-        {
-            get { return caseRec; }
-        }
-        private Texture2D caseTex;
-
-        public Texture2D CaseTexture
-        {
-            get { return caseTex; }
-            set { caseTex = value; }
-        }
-
-        private Texture2D selectedtexture;
-
-        public Texture2D Selectedtexture
-        {
-            get { return selectedtexture; }
-            set { selectedtexture = value; }
-        }
-
-        private bool selectedCase;
-
-        public bool SelectedCase
-        {
-            get { return selectedCase; }
-            set { selectedCase = value; }
-        }
-
-        private bool availableCase;
-
-        public bool AvailableCase
-        {
-            get { return availableCase; }
-            set { availableCase = value; }
-        }
-
-        private Texture2D availableTexture;
-
-        public Texture2D AvailableTexture
-        {
-            get { return availableTexture; }
-            set { availableTexture = value; }
-        }
-
-        private Texture2D rockTexture;
-
-        public Texture2D RockTexture
-        {
-            get { return rockTexture; }
-            set { rockTexture = value; }
-        }
+        public Piece Piece { get; set;}
+        public Rectangle CaseRectangle { get; set; }
+        public Texture2D CaseTexture { get; set; }
+        public Texture2D Selectedtexture { get; set; }
+        public bool SelectedCase { get; set; }
+        public bool AvailableCase { get; set; }
+        public Texture2D AvailableTexture { get; set; }
+        public Texture2D RockTexture { get; set; }
+        public Boolean IsLittleRockPossible { get; set; }
+        public Boolean IsBigRockPossible { get; set; }
 
         private string letterIdentifier;
         private string numberIdentifier;
 
-        public Boolean IsLittleRockPossible { get; set; }
-        public Boolean IsBigRockPossible { get; set; }
 
         public Case(Texture2D texture, Texture2D selectedTex, Texture2D availableTex, int x, int y, int width, int height, string letterId, string numberId)
         {
-            caseRec = new Rectangle(x, y, width, height);
-            selectedtexture = selectedTex;
-            availableTexture = availableTex;
-            caseTex = texture;
+            CaseRectangle = new Rectangle(x, y, width, height);
+            Selectedtexture = selectedTex;
+            AvailableTexture = availableTex;
+            CaseTexture = texture;
             letterIdentifier = letterId;
             numberIdentifier = numberId;
-            piece = null;
-            this.availableCase = false;
+            Piece = null;
+            AvailableCase = false;
             IsBigRockPossible = false;
             IsLittleRockPossible = false;
             
@@ -93,32 +38,24 @@ namespace echecEtSharp
 
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(caseTex, caseRec, Color.White);
+            batch.Draw(CaseTexture, CaseRectangle, Color.White);
 
-            if (selectedCase)
-            {
-                batch.Draw(selectedtexture, caseRec, Color.White);               
-            }
+            if (SelectedCase)
+                batch.Draw(Selectedtexture, CaseRectangle, Color.White);               
 
-            if (availableCase)
-            {
-                batch.Draw(availableTexture, caseRec, Color.White);
-            }
-
-            if (piece != null)
+            if (AvailableCase)
+                batch.Draw(AvailableTexture, CaseRectangle, Color.White);
+            
+            if (Piece != null)
             {
                 if (IsBigRockPossible || IsLittleRockPossible)
                 {
                     if (Piece.IsWhite)
-                    {
-                        batch.Draw(rockTexture, caseRec, Color.White);
-                    }
+                        batch.Draw(RockTexture, CaseRectangle, Color.White);
                     else 
-                    {
-                        batch.Draw(rockTexture, caseRec, Color.White);
-                    }
+                        batch.Draw(RockTexture, CaseRectangle, Color.White);
                 }
-                piece.Draw(batch, caseRec);    
+                Piece.Draw(batch, CaseRectangle);    
             }
         }
     }

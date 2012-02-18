@@ -14,22 +14,22 @@ namespace echecEtSharp
     
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Map map;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Map map;
 
-        Player player1;
-        Player player2;
+        private Player player1;
+        private Player player2;
 
-        SpriteFont font;
+        private SpriteFont font;
 
-        Texture2D blackTexture;
-        Texture2D whitetexture;
+        private Texture2D blackTexture;
+        private  Texture2D whitetexture;
 
-        MouseState mouseState;
-        MouseState oldState;
+        private MouseState mouseState;
+        private MouseState oldState;
 
-        Boolean gameTurn;
+        private Boolean gameTurn;
 
         public Game1()
         {
@@ -44,32 +44,19 @@ namespace echecEtSharp
             player1 = new Player(1, true);
             player2 = new Player(2, false);
 
+            Console.WriteLine("fu");
             gameTurn = true;
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             Texture2D whiteC = Content.Load<Texture2D>("white");
             Texture2D greyC = Content.Load<Texture2D>("grey");
             Texture2D blueC = Content.Load<Texture2D>("blue");
@@ -91,7 +78,6 @@ namespace echecEtSharp
             player1.generatePieces();
             player2.generatePieces();
             setPiecesOnCases();
-
 
             font = Content.Load<SpriteFont>("Arial");
             map.AddFont(font);
@@ -119,20 +105,11 @@ namespace echecEtSharp
             }
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -271,15 +248,10 @@ namespace echecEtSharp
       
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.WhiteSmoke);
 
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
            
             map.Draw(spriteBatch);

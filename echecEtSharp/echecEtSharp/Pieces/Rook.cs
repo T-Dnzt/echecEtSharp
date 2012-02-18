@@ -27,7 +27,6 @@ namespace echecEtSharp.Pieces
             AvailableCases.Clear();
         }
 
-        //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override void defineAvailableCases(Case c, List<Case> map)
         {
             if (c.Piece.IsWhite && isOnA(map.IndexOf(c)) && c.Piece.NumberOfMouvs == 0 &&
@@ -205,7 +204,6 @@ namespace echecEtSharp.Pieces
             }
         }
 
-        //Modifier cette méthode, créer une méthode générique dans Piece qui prend un paramètre dans chaque pièce
         public override List<Case> defineEchecCases(Boolean white, Case king, Case c, List<Case> map)
         {
             var echecCases = new List<Case>();
