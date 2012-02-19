@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.GamerServices;
 
 
 namespace echecEtSharp
@@ -23,13 +24,12 @@ namespace echecEtSharp
 
         private SpriteFont font;
 
-        private Texture2D blackTexture;
-        private  Texture2D whitetexture;
-
         private MouseState mouseState;
         private MouseState oldState;
 
         private Boolean gameTurn;
+
+        private List<Texture2D> textures;
 
         public Game1()
         {
@@ -39,13 +39,47 @@ namespace echecEtSharp
             graphics.PreferredBackBufferWidth = 500;
             graphics.PreferredBackBufferHeight = 650;
             IsMouseVisible = true;
+            textures = new List<Texture2D>();
 
+            initGame();
+        }
+
+        public void initGame()
+        {
             map = new Map();
             player1 = new Player(1, true);
             player2 = new Player(2, false);
-
-            Console.WriteLine("fu");
             gameTurn = true;
+
+        }
+
+        public void loadGame()
+        {
+            for (int i = 0; i < textures.Count; i++)
+            {
+                map.AddTexture(textures.ElementAt(i));
+                Console.WriteLine(textures.ElementAt(i).Name);
+            }
+
+            map.generateMap();
+
+            loadPiecesTextures(player1, "White");
+            loadPiecesTextures(player2, "Black");
+            player1.generatePieces();
+            player2.generatePieces();
+            setPiecesOnCases();
+            map.AddFont(font);
+        }
+
+        public void askForNewGame()
+        {
+
+        }
+
+        public void resetGame()
+        {
+            initGame();
+            loadGame();
         }
 
         protected override void Initialize()
@@ -57,30 +91,15 @@ namespace echecEtSharp
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Texture2D whiteC = Content.Load<Texture2D>("white");
-            Texture2D greyC = Content.Load<Texture2D>("grey");
-            Texture2D blueC = Content.Load<Texture2D>("blue");
-            Texture2D redC = Content.Load<Texture2D>("red");
-            Texture2D greenC = Content.Load<Texture2D>("green");
-            blackTexture = Content.Load<Texture2D>("black");
-            whitetexture = whiteC;
-
-            map.AddTexture(whiteC);
-            map.AddTexture(greyC);
-            map.AddTexture(blueC);
-            map.AddTexture(redC);
-            map.AddTexture(greenC);
-            map.generateMap();
-
-
-            loadPiecesTextures(player1, "White");
-            loadPiecesTextures(player2, "Black");
-            player1.generatePieces();
-            player2.generatePieces();
-            setPiecesOnCases();
-
+            textures.Add(Content.Load<Texture2D>("white"));
+            textures.Add(Content.Load<Texture2D>("grey"));
+            textures.Add(Content.Load<Texture2D>("blue"));
+            textures.Add( Content.Load<Texture2D>("red"));
+            textures.Add( Content.Load<Texture2D>("green"));
+            textures.Add(Content.Load<Texture2D>("black"));
             font = Content.Load<SpriteFont>("Arial");
-            map.AddFont(font);
+
+            loadGame();
         }
 
         private void loadPiecesTextures(Player player, String name)
@@ -143,10 +162,11 @@ namespace echecEtSharp
                                 player2.turnPawnIntoHulk(clickedCase, (Pieces.Pawn)currentPiece, "Black", gameTurn);
 
                         }
-
+                        
                         selectedC.Piece = null;
                         map.unSelectCase();
                         gameTurn = !gameTurn;
+                        askForNewGame();
                     }
                     else if (clickedCase.IsBigRockPossible)
                     {
@@ -236,12 +256,12 @@ namespace echecEtSharp
         {
             if (gameTurn)
             {
-                batch.Draw(whitetexture, new Rectangle(220, 500, 50, 50), Color.White);
+                batch.Draw(textures.ElementAt(0), new Rectangle(220, 500, 50, 50), Color.White);
                 batch.DrawString(font, "White", new Vector2(227, 518), Color.Black);
             }
             else
             {
-                batch.Draw(blackTexture, new Rectangle(220, 500, 50, 50), Color.White);
+                batch.Draw(textures.ElementAt(5), new Rectangle(220, 500, 50, 50), Color.White);
                 batch.DrawString(font, "Black", new Vector2(230, 518), Color.White);
             }
      
