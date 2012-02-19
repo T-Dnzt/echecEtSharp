@@ -8,7 +8,7 @@ namespace echecEtSharp
 {
     internal class Piece
     {
-
+        public Boolean isKing { get; set; }
         protected Vector2 position;
         protected Texture2D texture;
         protected int numberOfMouvs;

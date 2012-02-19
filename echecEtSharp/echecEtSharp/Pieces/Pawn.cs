@@ -11,7 +11,7 @@ namespace echecEtSharp.Pieces
         public Pawn(Texture2D tex, Boolean isWhite, Boolean canJump)
             : base(tex, isWhite, canJump)
         {
-
+            isKing = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -48,14 +48,14 @@ namespace echecEtSharp.Pieces
                         }
                     }
                     else if (i == 1 && !isOnH(map.IndexOf(c)) && map.ElementAt(map.IndexOf(c) - 7).Piece != null &&
-                                !map.ElementAt(map.IndexOf(c) - 7).Piece.IsWhite)
+                                !map.ElementAt(map.IndexOf(c) - 7).Piece.IsWhite && !(map.ElementAt(map.IndexOf(c) - 7).Piece.isKing))
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 7);
                         tempC.AvailableCase = true;
                         AvailableCases.Add(tempC);
                     }
                     else if (i == 2 && !isOnA(map.IndexOf(c)) && map.ElementAt(map.IndexOf(c) - 9).Piece != null &&
-                                !map.ElementAt(map.IndexOf(c) - 9).Piece.IsWhite)
+                                !map.ElementAt(map.IndexOf(c) - 9).Piece.IsWhite && !(map.ElementAt(map.IndexOf(c) - 9).Piece.isKing))
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 9);
                         tempC.AvailableCase = true;
@@ -81,14 +81,14 @@ namespace echecEtSharp.Pieces
                         }
                     }
                     else if (i == 1 && map.ElementAt(map.IndexOf(c) + 7).Piece != null && !isOnA(map.IndexOf(c)) &&
-                                map.ElementAt(map.IndexOf(c) + 7).Piece.IsWhite)
+                                map.ElementAt(map.IndexOf(c) + 7).Piece.IsWhite && !(map.ElementAt(map.IndexOf(c) + 7).Piece.isKing))
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 7);
                         tempC.AvailableCase = true;
                         AvailableCases.Add(tempC);
                     }
                     else if (i == 2 && map.ElementAt(map.IndexOf(c) + 9).Piece != null && !isOnH(map.IndexOf(c)) &&
-                                map.ElementAt(map.IndexOf(c) + 9).Piece.IsWhite)
+                                map.ElementAt(map.IndexOf(c) + 9).Piece.IsWhite && !(map.ElementAt(map.IndexOf(c) + 9).Piece.isKing))
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 9);
                         tempC.AvailableCase = true;

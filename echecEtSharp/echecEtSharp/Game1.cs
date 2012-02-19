@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
+using echecEtSharp.Pieces;
 
 
 namespace echecEtSharp
@@ -246,6 +247,123 @@ namespace echecEtSharp
                             {
                                 cCase.IsBigRockPossible = false;
                                 cCase.IsLittleRockPossible = false;
+                            }
+                        }
+
+                        List<Case> kings = (from m in map.CaseList where m.Piece != null && m.Piece is King select m).ToList();
+                        foreach (Case king in kings)
+                        {
+                            if(king.Piece.IsWhite)
+                            {
+                                Boolean c1 = false;
+                                Boolean c2 = false;
+                                Boolean c3 = false;
+                                Boolean c4 = false;
+                                Boolean c5 = false;
+                                Boolean c6 = false;
+                                Boolean c7 = false;
+                                Boolean c8 = false;
+
+                                if(king.Piece.isOn1(map.CaseList.IndexOf(king)))
+                                {
+                                    c6 = true;
+                                    c7 = true;
+                                    c8 = true;
+                                }
+                                if (king.Piece.isOn8(map.CaseList.IndexOf(king)))
+                                {
+                                    c1 = true;
+                                    c2 = true;
+                                    c3 = true;
+                                }
+                                if (king.Piece.isOnA(map.CaseList.IndexOf(king)))
+                                {
+                                    c1 = true;
+                                    c4 = true;
+                                    c6 = true;
+                                }
+                                if (king.Piece.isOnH(map.CaseList.IndexOf(king)))
+                                {
+                                    c3 = true;
+                                    c5 = true;
+                                    c8 = true;
+                                }
+                                if(!king.Piece.isOnH(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 1 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 1), map.CaseList))
+                                    c5 = true;
+                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 1 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 1), map.CaseList))
+                                    c4 = true;
+                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 9 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 9), map.CaseList))
+                                    c1 = true;
+                                if (!king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 8 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 8), map.CaseList))
+                                    c2 = true;
+                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 7 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 7), map.CaseList))
+                                    c3 = true;
+                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 9 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 9), map.CaseList))
+                                    c8 = true;
+                                if (!king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 8 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 8), map.CaseList))
+                                    c7 = true;
+                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 7 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 7), map.CaseList))
+                                    c6 = true;
+                                if(c1 && c2 && c3 && c4 && c5 && c6 && c7 && c8)
+                                {
+                                    gameOver(false);   
+                                }
+                            }
+                            else
+                            {
+                                Boolean c1 = false;
+                                Boolean c2 = false;
+                                Boolean c3 = false;
+                                Boolean c4 = false;
+                                Boolean c5 = false;
+                                Boolean c6 = false;
+                                Boolean c7 = false;
+                                Boolean c8 = false;
+
+                                if (king.Piece.isOn1(map.CaseList.IndexOf(king)))
+                                {
+                                    c6 = true;
+                                    c7 = true;
+                                    c8 = true;
+                                }
+                                if (king.Piece.isOn8(map.CaseList.IndexOf(king)))
+                                {
+                                    c1 = true;
+                                    c2 = true;
+                                    c3 = true;
+                                }
+                                if (king.Piece.isOnA(map.CaseList.IndexOf(king)))
+                                {
+                                    c1 = true;
+                                    c4 = true;
+                                    c6 = true;
+                                }
+                                if (king.Piece.isOnH(map.CaseList.IndexOf(king)))
+                                {
+                                    c3 = true;
+                                    c5 = true;
+                                    c8 = true;
+                                }
+                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 1 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 1), map.CaseList))
+                                    c5 = true;
+                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 1 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 1), map.CaseList))
+                                    c4 = true;
+                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 9 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 9), map.CaseList))
+                                    c1 = true;
+                                if (!king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 8 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 8), map.CaseList))
+                                    c2 = true;
+                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 7 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 7), map.CaseList))
+                                    c3 = true;
+                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 9 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 9), map.CaseList))
+                                    c8 = true;
+                                if (!king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 8 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 8), map.CaseList))
+                                    c7 = true;
+                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 7 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 7), map.CaseList))
+                                    c6 = true;
+                                if (c1 && c2 && c3 && c4 && c5 && c6 && c7 && c8)
+                                {
+                                    gameOver(true);
+                                }
                             }
                         }
                     }

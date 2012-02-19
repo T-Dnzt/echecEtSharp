@@ -11,6 +11,7 @@ namespace echecEtSharp.Pieces
         public Bishop(Texture2D tex, Boolean isWhite, Boolean canJump)
             : base(tex, isWhite, canJump)
         {
+            isKing = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -38,7 +39,7 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 7);
 
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -58,7 +59,7 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 7);
 
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -79,7 +80,7 @@ namespace echecEtSharp.Pieces
                     if ((i == 1) && !isOnA(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 7 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 7);
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -98,7 +99,7 @@ namespace echecEtSharp.Pieces
                     if ((i == 1) && !isOnA(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 7 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 7);
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -120,7 +121,7 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 9);
 
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -140,7 +141,7 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 9);
 
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -161,7 +162,7 @@ namespace echecEtSharp.Pieces
                     if ((i == 3) && !isOnH(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 9 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 9);
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -180,7 +181,7 @@ namespace echecEtSharp.Pieces
                     if ((i == 3) && !isOnH(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 9 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 9);
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite && !tempC.Piece.isKing)
                         {
                             tempC.AvailableCase = true;
                             AvailableCases.Add(tempC);
@@ -209,10 +210,10 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 7);
 
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 7) >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) - 7) >= 0 &&
                                 !isOnH(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) - 7);
@@ -232,10 +233,10 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 7);
 
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 7) >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) - 7) >= 0 &&
                                 !isOnH(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) - 7);
@@ -256,10 +257,10 @@ namespace echecEtSharp.Pieces
                     if ((i == 1) && !isOnA(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 7 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 7);
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 7) < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) + 7) < 64 &&
                                 !isOnA(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) + 7);
@@ -278,10 +279,10 @@ namespace echecEtSharp.Pieces
                     if ((i == 1) && !isOnA(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 7 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 7);
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 7) < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) + 7) < 64 &&
                                 !isOnA(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) + 7);
@@ -303,10 +304,10 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 9);
 
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 9) >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) - 9) >= 0 &&
                                 !isOnA(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) - 9);
@@ -326,10 +327,10 @@ namespace echecEtSharp.Pieces
                     {
                         tempC = map.ElementAt(map.IndexOf(c) - 9);
 
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 9) >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) - 9) >= 0 &&
                                 !isOnA(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) - 9);
@@ -350,10 +351,10 @@ namespace echecEtSharp.Pieces
                     if ((i == 3) && !isOnH(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 9 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 9);
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 9) < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) + 9) < 64 &&
                                 !isOnH(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) + 9);
@@ -372,10 +373,10 @@ namespace echecEtSharp.Pieces
                     if ((i == 3) && !isOnH(map.IndexOf(c)) && !isOn1(map.IndexOf(c)) && map.IndexOf(c) + 9 < 64)
                     {
                         tempC = map.ElementAt(map.IndexOf(c) + 9);
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
+                        while (tempC.Piece == null || !tempC.Piece.IsWhite || tempC.Piece is King)
                         {
                             echecCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 9) < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
+                            if ((map.IndexOf(tempC) + 9) < 64 &&
                                 !isOnH(map.IndexOf(tempC)))
                             {
                                 tempC = map.ElementAt(map.IndexOf(tempC) + 9);
