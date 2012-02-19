@@ -16,6 +16,7 @@ namespace echecEtSharp
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
+
         private SpriteBatch spriteBatch;
         private Map map;
 
@@ -27,9 +28,16 @@ namespace echecEtSharp
         private MouseState mouseState;
         private MouseState oldState;
 
+        private KeyboardState keyboardState;
+        private KeyboardState oldKeyboardState;
+
         private Boolean gameTurn;
 
         private List<Texture2D> textures;
+
+        private bool playAgain;
+        private bool gamePlaying;
+        private bool winner;
 
         public Game1()
         {
@@ -50,6 +58,8 @@ namespace echecEtSharp
             player1 = new Player(1, true);
             player2 = new Player(2, false);
             gameTurn = true;
+            playAgain = true;
+            gamePlaying = true;
 
         }
 
@@ -71,11 +81,6 @@ namespace echecEtSharp
             map.AddFont(font);
         }
 
-        public void askForNewGame()
-        {
-
-        }
-
         public void resetGame()
         {
             initGame();
@@ -85,6 +90,12 @@ namespace echecEtSharp
         protected override void Initialize()
         {
             base.Initialize();
+        }
+
+        public void gameOver(bool win)
+        {
+            gamePlaying = false;
+            winner = win;
         }
 
         protected override void LoadContent()
@@ -135,120 +146,143 @@ namespace echecEtSharp
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
-            mouseState = Mouse.GetState();
-
-
-            if (mouseState.LeftButton == ButtonState.Released &&
-                oldState.LeftButton == ButtonState.Pressed &&
-                map.isOverACase(mouseState.X, mouseState.Y))
+            if (gamePlaying)
             {
-                Case selectedC = map.getSelectedCase();
-                if (selectedC != null)
+                mouseState = Mouse.GetState();
+
+
+                if (mouseState.LeftButton == ButtonState.Released &&
+                    oldState.LeftButton == ButtonState.Pressed &&
+                    map.isOverACase(mouseState.X, mouseState.Y))
                 {
-                    Case clickedCase = map.getCase(mouseState.X, mouseState.Y);
-                    if (selectedC.Piece.AvailableCases.Contains(clickedCase))
+                    Case selectedC = map.getSelectedCase();
+                    if (selectedC != null)
                     {
-                        clickedCase.Piece = selectedC.Piece;
-                        Piece currentPiece = clickedCase.Piece;
-                       
-                        clickedCase.Piece.NumberOfMouvs += 1;
-                        selectedC.Piece.undefineAvailableCases();
-
-                        if (currentPiece != null && currentPiece.GetType().Name == "Pawn")
+                        Case clickedCase = map.getCase(mouseState.X, mouseState.Y);
+                        if (selectedC.Piece.AvailableCases.Contains(clickedCase))
                         {
-                            if (currentPiece.IsWhite && clickedCase.Piece.isOn8(map.CaseList.IndexOf(clickedCase)))
-                                player1.turnPawnIntoHulk(clickedCase, (Pieces.Pawn)currentPiece, "White", gameTurn);                                
-                            else if (!currentPiece.IsWhite && clickedCase.Piece.isOn1(map.CaseList.IndexOf(clickedCase)))
-                                player2.turnPawnIntoHulk(clickedCase, (Pieces.Pawn)currentPiece, "Black", gameTurn);
+                            clickedCase.Piece = selectedC.Piece;
+                            Piece currentPiece = clickedCase.Piece;
 
-                        }
-                        
-                        selectedC.Piece = null;
-                        map.unSelectCase();
-                        gameTurn = !gameTurn;
-                        askForNewGame();
-                    }
-                    else if (clickedCase.IsBigRockPossible)
-                    {
-                        if(selectedC.Piece.IsWhite)
-                        {
-                            clickedCase.IsBigRockPossible = false;
-                            selectedC.Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(59).Piece = map.CaseList.ElementAt(56).Piece;
+                            clickedCase.Piece.NumberOfMouvs += 1;
                             selectedC.Piece.undefineAvailableCases();
+
+                            if (currentPiece != null && currentPiece.GetType().Name == "Pawn")
+                            {
+                                if (currentPiece.IsWhite && clickedCase.Piece.isOn8(map.CaseList.IndexOf(clickedCase)))
+                                    player1.turnPawnIntoHulk(clickedCase, (Pieces.Pawn)currentPiece, "White", gameTurn);
+                                else if (!currentPiece.IsWhite && clickedCase.Piece.isOn1(map.CaseList.IndexOf(clickedCase)))
+                                    player2.turnPawnIntoHulk(clickedCase, (Pieces.Pawn)currentPiece, "Black", gameTurn);
+
+                            }
+
                             selectedC.Piece = null;
-                            map.CaseList.ElementAt(58).Piece = map.CaseList.ElementAt(60).Piece;
-                            map.CaseList.ElementAt(58).Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(60).Piece = null;
                             map.unSelectCase();
                             gameTurn = !gameTurn;
+                        }
+                        else if (clickedCase.IsBigRockPossible)
+                        {
+                            if (selectedC.Piece.IsWhite)
+                            {
+                                clickedCase.IsBigRockPossible = false;
+                                selectedC.Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(59).Piece = map.CaseList.ElementAt(56).Piece;
+                                selectedC.Piece.undefineAvailableCases();
+                                selectedC.Piece = null;
+                                map.CaseList.ElementAt(58).Piece = map.CaseList.ElementAt(60).Piece;
+                                map.CaseList.ElementAt(58).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(60).Piece = null;
+                                map.unSelectCase();
+                                gameTurn = !gameTurn;
+                            }
+                            else
+                            {
+                                clickedCase.IsBigRockPossible = false;
+                                selectedC.Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(3).Piece = map.CaseList.ElementAt(0).Piece;
+                                selectedC.Piece.undefineAvailableCases();
+                                map.CaseList.ElementAt(0).Piece = null;
+                                map.CaseList.ElementAt(2).Piece = map.CaseList.ElementAt(4).Piece;
+                                map.CaseList.ElementAt(2).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(4).Piece = null;
+                                map.unSelectCase();
+                                gameTurn = !gameTurn;
+                            }
+                        }
+                        else if (clickedCase.IsLittleRockPossible)
+                        {
+                            if (selectedC.Piece.IsWhite)
+                            {
+                                clickedCase.IsLittleRockPossible = false;
+                                selectedC.Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(61).Piece = map.CaseList.ElementAt(63).Piece;
+                                selectedC.Piece.undefineAvailableCases();
+                                map.CaseList.ElementAt(63).Piece = null;
+                                map.CaseList.ElementAt(62).Piece = map.CaseList.ElementAt(60).Piece;
+                                map.CaseList.ElementAt(62).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(60).Piece = null;
+                                map.unSelectCase();
+                                gameTurn = !gameTurn;
+                            }
+                            else
+                            {
+                                clickedCase.IsLittleRockPossible = false;
+                                selectedC.Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(5).Piece = map.CaseList.ElementAt(7).Piece;
+                                selectedC.Piece.undefineAvailableCases();
+                                map.CaseList.ElementAt(7).Piece = null;
+                                map.CaseList.ElementAt(6).Piece = map.CaseList.ElementAt(4).Piece;
+                                map.CaseList.ElementAt(6).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(4).Piece = null;
+                                map.unSelectCase();
+                                gameTurn = !gameTurn;
+                            }
                         }
                         else
                         {
-                            clickedCase.IsBigRockPossible = false;
-                            selectedC.Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(3).Piece = map.CaseList.ElementAt(0).Piece;
                             selectedC.Piece.undefineAvailableCases();
-                            map.CaseList.ElementAt(0).Piece = null;
-                            map.CaseList.ElementAt(2).Piece = map.CaseList.ElementAt(4).Piece;
-                            map.CaseList.ElementAt(2).Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(4).Piece = null;
                             map.unSelectCase();
-                            gameTurn = !gameTurn;
-                        }
-                    }else if (clickedCase.IsLittleRockPossible)
-                    {
-                        if (selectedC.Piece.IsWhite)
-                        {
-                            clickedCase.IsLittleRockPossible = false;
-                            selectedC.Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(61).Piece = map.CaseList.ElementAt(63).Piece;
-                            selectedC.Piece.undefineAvailableCases();
-                            map.CaseList.ElementAt(63).Piece = null;
-                            map.CaseList.ElementAt(62).Piece = map.CaseList.ElementAt(60).Piece;
-                            map.CaseList.ElementAt(62).Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(60).Piece = null;
-                            map.unSelectCase();
-                            gameTurn = !gameTurn;
-                        }
-                        else
-                        {
-                            clickedCase.IsLittleRockPossible = false;
-                            selectedC.Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(5).Piece = map.CaseList.ElementAt(7).Piece;
-                            selectedC.Piece.undefineAvailableCases();
-                            map.CaseList.ElementAt(7).Piece = null;
-                            map.CaseList.ElementAt(6).Piece = map.CaseList.ElementAt(4).Piece;
-                            map.CaseList.ElementAt(6).Piece.NumberOfMouvs += 1;
-                            map.CaseList.ElementAt(4).Piece = null;
-                            map.unSelectCase();
-                            gameTurn = !gameTurn;
+                            foreach (Case cCase in map.CaseList)
+                            {
+                                cCase.IsBigRockPossible = false;
+                                cCase.IsLittleRockPossible = false;
+                            }
                         }
                     }
                     else
                     {
-                        selectedC.Piece.undefineAvailableCases();
-                        map.unSelectCase();
-                        foreach (Case cCase in map.CaseList)
+                        if (map.getCase(mouseState.X, mouseState.Y, gameTurn) != null && map.getCase(mouseState.X, mouseState.Y, gameTurn).Piece != null)
                         {
-                            cCase.IsBigRockPossible = false;
-                            cCase.IsLittleRockPossible = false;
+                            map.selectCase(mouseState.X, mouseState.Y);
                         }
-                    } 
-                }
-                else
-                {
-                    if (map.getCase(mouseState.X, mouseState.Y, gameTurn) != null && map.getCase(mouseState.X, mouseState.Y, gameTurn).Piece != null)
-                    {
-                        map.selectCase(mouseState.X, mouseState.Y);
                     }
+
                 }
 
+                oldState = mouseState;
             }
+            else
+            {
+                keyboardState = Keyboard.GetState();
+                if (keyboardState.IsKeyDown(Keys.Down))
+                {
+                    playAgain = false;
+                }
+                else if (keyboardState.IsKeyDown(Keys.Up))
+                {
+                    playAgain = true;
+                }
+                else if (keyboardState.IsKeyDown(Keys.Enter))
+                {
+                    if(playAgain)
+                        resetGame();
+                    else
+                        Exit();                      
+                }
 
-            oldState = mouseState;
-
-
+                oldKeyboardState = keyboardState;
+            }
+    
             base.Update(gameTime);
         }
 
@@ -264,8 +298,26 @@ namespace echecEtSharp
                 batch.Draw(textures.ElementAt(5), new Rectangle(220, 500, 50, 50), Color.White);
                 batch.DrawString(font, "Black", new Vector2(230, 518), Color.White);
             }
-     
-      
+        }
+
+        private void drawMenu(SpriteBatch batch)
+        {
+
+            if(winner)
+                batch.DrawString(font, "White wins ! ", new Vector2(215, 200), Color.Black);
+            else
+                batch.DrawString(font, "Black wins ! ", new Vector2(215, 200), Color.Black);
+
+            if (playAgain)
+            {
+                batch.DrawString(font, "Play again", new Vector2(220, 280), Color.Gray);
+                batch.DrawString(font, "Quit", new Vector2(238, 300), Color.Black);
+            }
+            else
+            {
+                batch.DrawString(font, "Play again", new Vector2(220, 280), Color.Black);
+                batch.DrawString(font, "Quit", new Vector2(238, 300), Color.Gray);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -274,8 +326,16 @@ namespace echecEtSharp
 
             spriteBatch.Begin();
            
-            map.Draw(spriteBatch);
-            DrawTurnInfo(spriteBatch);
+
+            if (gamePlaying)
+            {
+                map.Draw(spriteBatch);
+                DrawTurnInfo(spriteBatch);
+            }
+            else
+            {
+                drawMenu(spriteBatch);
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);
