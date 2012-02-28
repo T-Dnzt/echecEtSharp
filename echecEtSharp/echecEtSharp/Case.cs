@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace echecEtSharp
 {
-    class Case
+    public class Case
     {
         public Piece Piece { get; set;}
         public Rectangle CaseRectangle { get; set; }

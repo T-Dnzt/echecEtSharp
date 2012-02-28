@@ -39,6 +39,8 @@ namespace echecEtSharp
         private bool playAgain;
         private bool gamePlaying;
         private bool winner;
+        private bool whiteEchec;
+        private bool blackEchec;
 
         public Game1()
         {
@@ -50,10 +52,10 @@ namespace echecEtSharp
             IsMouseVisible = true;
             textures = new List<Texture2D>();
 
-            initGame();
+            InitGame();
         }
 
-        public void initGame()
+        public void InitGame()
         {
             map = new Map();
             player1 = new Player(1, true);
@@ -61,31 +63,32 @@ namespace echecEtSharp
             gameTurn = true;
             playAgain = true;
             gamePlaying = true;
-
+            whiteEchec = false;
+            blackEchec = false;
         }
 
-        public void loadGame()
+        public void LoadGame()
         {
             for (int i = 0; i < textures.Count; i++)
             {
                 map.AddTexture(textures.ElementAt(i));
-                Console.WriteLine(textures.ElementAt(i).Name);
+         
             }
 
-            map.generateMap();
+            map.GenerateMap();
 
-            loadPiecesTextures(player1, "White");
-            loadPiecesTextures(player2, "Black");
-            player1.generatePieces();
-            player2.generatePieces();
-            setPiecesOnCases();
+            LoadPiecesTextures(player1, "White");
+            LoadPiecesTextures(player2, "Black");
+            player1.GeneratePieces();
+            player2.GeneratePieces();
+            SetPiecesOnCases();
             map.AddFont(font);
         }
 
-        public void resetGame()
+        public void ResetGame()
         {
-            initGame();
-            loadGame();
+            InitGame();
+            LoadGame();
         }
 
         protected override void Initialize()
@@ -93,7 +96,7 @@ namespace echecEtSharp
             base.Initialize();
         }
 
-        public void gameOver(bool win)
+        public void GameOver(bool win)
         {
             gamePlaying = false;
             winner = win;
@@ -111,10 +114,10 @@ namespace echecEtSharp
             textures.Add(Content.Load<Texture2D>("black"));
             font = Content.Load<SpriteFont>("Arial");
 
-            loadGame();
+            LoadGame();
         }
 
-        private void loadPiecesTextures(Player player, String name)
+        private void LoadPiecesTextures(Player player, String name)
         {
             player.PieceTextures.Add(String.Format("{0} King", name), Content.Load<Texture2D>(String.Format("{0}king", name.ToLower())));
             player.PieceTextures.Add(String.Format("{0} Knight", name), Content.Load<Texture2D>(String.Format("{0}knight", name.ToLower())));
@@ -124,7 +127,7 @@ namespace echecEtSharp
             player.PieceTextures.Add(String.Format("{0} Bishop", name), Content.Load<Texture2D>(String.Format("{0}bishop", name.ToLower())));
         }
 
-        private void setPiecesOnCases()
+        private void SetPiecesOnCases()
         {
             for (int top = 56; top < 64; top++)
             {
@@ -141,6 +144,50 @@ namespace echecEtSharp
 
         }
 
+        private void CheckMate()
+        {
+  
+        }
+
+        private void CheckEchec()
+        {
+            bool tempWhiteEchec = false;
+            bool tempBlackEchec = false;
+
+            foreach(Case c1 in map.CaseList)
+            {
+                if(c1.Piece != null)
+                {                  
+                    c1.Piece.DefineAvailableCases(c1, map.CaseList, whiteEchec, blackEchec, false);
+                    foreach (Case c2 in c1.Piece.AvailableCases)
+                    {
+                        if (!c1.Piece.IsWhite && c2.Piece != null && c2.Piece.IsWhite && c2.Piece is King)
+                        {
+                            tempWhiteEchec = true;
+                        }
+
+                        if (c1.Piece.IsWhite && c2.Piece != null && !c2.Piece.IsWhite && c2.Piece is King)
+                        {
+                            tempBlackEchec = true;
+                            break;
+                        }
+
+                    }
+                    c1.Piece.UndefineAvailableCases();
+                }
+            }
+
+            if (tempWhiteEchec)
+                whiteEchec = true;
+            else
+                whiteEchec = false;
+
+            if (tempBlackEchec)
+                blackEchec = true;
+            else
+                blackEchec = false;
+        }
+
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -152,33 +199,45 @@ namespace echecEtSharp
                 mouseState = Mouse.GetState();
 
 
+
                 if (mouseState.LeftButton == ButtonState.Released &&
                     oldState.LeftButton == ButtonState.Pressed &&
-                    map.isOverACase(mouseState.X, mouseState.Y))
+                    map.IsOverACase(mouseState.X, mouseState.Y))
                 {
-                    Case selectedC = map.getSelectedCase();
+
+                 
+
+                    Case selectedC = map.GetSelectedCase();
                     if (selectedC != null)
                     {
-                        Case clickedCase = map.getCase(mouseState.X, mouseState.Y);
+                        Case clickedCase = map.GetCase(mouseState.X, mouseState.Y);
                         if (selectedC.Piece.AvailableCases.Contains(clickedCase))
                         {
+                            if (clickedCase.Piece != null)
+                            {
+                                if (gameTurn)
+                                    player1.ListPieces.Remove(clickedCase.Piece);
+                                else
+                                    player2.ListPieces.Remove(clickedCase.Piece);
+                            }
+
                             clickedCase.Piece = selectedC.Piece;
                             Piece currentPiece = clickedCase.Piece;
 
-                            clickedCase.Piece.NumberOfMouvs += 1;
-                            selectedC.Piece.undefineAvailableCases();
+                            clickedCase.Piece.NumberOfMoves += 1;
+                            selectedC.Piece.UndefineAvailableCases();
 
                             if (currentPiece != null && currentPiece.GetType().Name == "Pawn")
                             {
-                                if (currentPiece.IsWhite && clickedCase.Piece.isOn8(map.CaseList.IndexOf(clickedCase)))
-                                    player1.turnPawnIntoHulk(clickedCase, (Pieces.Pawn)currentPiece, "White", gameTurn);
-                                else if (!currentPiece.IsWhite && clickedCase.Piece.isOn1(map.CaseList.IndexOf(clickedCase)))
-                                    player2.turnPawnIntoHulk(clickedCase, (Pieces.Pawn)currentPiece, "Black", gameTurn);
+                                if (currentPiece.IsWhite && clickedCase.Piece.IsOn8(map.CaseList.IndexOf(clickedCase)))
+                                    player1.TurnIntoQueen(clickedCase, (Pieces.Pawn)currentPiece, "White", gameTurn);
+                                else if (!currentPiece.IsWhite && clickedCase.Piece.IsOn1(map.CaseList.IndexOf(clickedCase)))
+                                    player2.TurnIntoQueen(clickedCase, (Pieces.Pawn)currentPiece, "Black", gameTurn);
 
                             }
 
                             selectedC.Piece = null;
-                            map.unSelectCase();
+                            map.UnSelectCase();
                             gameTurn = !gameTurn;
                         }
                         else if (clickedCase.IsBigRockPossible)
@@ -186,27 +245,27 @@ namespace echecEtSharp
                             if (selectedC.Piece.IsWhite)
                             {
                                 clickedCase.IsBigRockPossible = false;
-                                selectedC.Piece.NumberOfMouvs += 1;
+                                selectedC.Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(59).Piece = map.CaseList.ElementAt(56).Piece;
-                                selectedC.Piece.undefineAvailableCases();
+                                selectedC.Piece.UndefineAvailableCases();
                                 selectedC.Piece = null;
                                 map.CaseList.ElementAt(58).Piece = map.CaseList.ElementAt(60).Piece;
-                                map.CaseList.ElementAt(58).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(58).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(60).Piece = null;
-                                map.unSelectCase();
+                                map.UnSelectCase();
                                 gameTurn = !gameTurn;
                             }
                             else
                             {
                                 clickedCase.IsBigRockPossible = false;
-                                selectedC.Piece.NumberOfMouvs += 1;
+                                selectedC.Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(3).Piece = map.CaseList.ElementAt(0).Piece;
-                                selectedC.Piece.undefineAvailableCases();
+                                selectedC.Piece.UndefineAvailableCases();
                                 map.CaseList.ElementAt(0).Piece = null;
                                 map.CaseList.ElementAt(2).Piece = map.CaseList.ElementAt(4).Piece;
-                                map.CaseList.ElementAt(2).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(2).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(4).Piece = null;
-                                map.unSelectCase();
+                                map.UnSelectCase();
                                 gameTurn = !gameTurn;
                             }
                         }
@@ -215,34 +274,34 @@ namespace echecEtSharp
                             if (selectedC.Piece.IsWhite)
                             {
                                 clickedCase.IsLittleRockPossible = false;
-                                selectedC.Piece.NumberOfMouvs += 1;
+                                selectedC.Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(61).Piece = map.CaseList.ElementAt(63).Piece;
-                                selectedC.Piece.undefineAvailableCases();
+                                selectedC.Piece.UndefineAvailableCases();
                                 map.CaseList.ElementAt(63).Piece = null;
                                 map.CaseList.ElementAt(62).Piece = map.CaseList.ElementAt(60).Piece;
-                                map.CaseList.ElementAt(62).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(62).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(60).Piece = null;
-                                map.unSelectCase();
+                                map.UnSelectCase();
                                 gameTurn = !gameTurn;
                             }
                             else
                             {
                                 clickedCase.IsLittleRockPossible = false;
-                                selectedC.Piece.NumberOfMouvs += 1;
+                                selectedC.Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(5).Piece = map.CaseList.ElementAt(7).Piece;
-                                selectedC.Piece.undefineAvailableCases();
+                                selectedC.Piece.UndefineAvailableCases();
                                 map.CaseList.ElementAt(7).Piece = null;
                                 map.CaseList.ElementAt(6).Piece = map.CaseList.ElementAt(4).Piece;
-                                map.CaseList.ElementAt(6).Piece.NumberOfMouvs += 1;
+                                map.CaseList.ElementAt(6).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(4).Piece = null;
-                                map.unSelectCase();
+                                map.UnSelectCase();
                                 gameTurn = !gameTurn;
                             }
                         }
                         else
                         {
-                            selectedC.Piece.undefineAvailableCases();
-                            map.unSelectCase();
+                            selectedC.Piece.UndefineAvailableCases();
+                            map.UnSelectCase();
                             foreach (Case cCase in map.CaseList)
                             {
                                 cCase.IsBigRockPossible = false;
@@ -250,128 +309,14 @@ namespace echecEtSharp
                             }
                         }
 
-                        List<Case> kings = (from m in map.CaseList where m.Piece != null && m.Piece is King select m).ToList();
-                        foreach (Case king in kings)
-                        {
-                            if(king.Piece.IsWhite)
-                            {
-                                Boolean c1 = false;
-                                Boolean c2 = false;
-                                Boolean c3 = false;
-                                Boolean c4 = false;
-                                Boolean c5 = false;
-                                Boolean c6 = false;
-                                Boolean c7 = false;
-                                Boolean c8 = false;
-
-                                if(king.Piece.isOn1(map.CaseList.IndexOf(king)))
-                                {
-                                    c6 = true;
-                                    c7 = true;
-                                    c8 = true;
-                                }
-                                if (king.Piece.isOn8(map.CaseList.IndexOf(king)))
-                                {
-                                    c1 = true;
-                                    c2 = true;
-                                    c3 = true;
-                                }
-                                if (king.Piece.isOnA(map.CaseList.IndexOf(king)))
-                                {
-                                    c1 = true;
-                                    c4 = true;
-                                    c6 = true;
-                                }
-                                if (king.Piece.isOnH(map.CaseList.IndexOf(king)))
-                                {
-                                    c3 = true;
-                                    c5 = true;
-                                    c8 = true;
-                                }
-                                if(!king.Piece.isOnH(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 1 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 1), map.CaseList))
-                                    c5 = true;
-                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 1 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 1), map.CaseList))
-                                    c4 = true;
-                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 9 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 9), map.CaseList))
-                                    c1 = true;
-                                if (!king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 8 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 8), map.CaseList))
-                                    c2 = true;
-                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 7 >= 0 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 7), map.CaseList))
-                                    c3 = true;
-                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 9 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 9), map.CaseList))
-                                    c8 = true;
-                                if (!king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 8 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 8), map.CaseList))
-                                    c7 = true;
-                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 7 < 64 && king.Piece.isInEchec(true, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 7), map.CaseList))
-                                    c6 = true;
-                                if(c1 && c2 && c3 && c4 && c5 && c6 && c7 && c8)
-                                {
-                                    gameOver(false);   
-                                }
-                            }
-                            else
-                            {
-                                Boolean c1 = false;
-                                Boolean c2 = false;
-                                Boolean c3 = false;
-                                Boolean c4 = false;
-                                Boolean c5 = false;
-                                Boolean c6 = false;
-                                Boolean c7 = false;
-                                Boolean c8 = false;
-
-                                if (king.Piece.isOn1(map.CaseList.IndexOf(king)))
-                                {
-                                    c6 = true;
-                                    c7 = true;
-                                    c8 = true;
-                                }
-                                if (king.Piece.isOn8(map.CaseList.IndexOf(king)))
-                                {
-                                    c1 = true;
-                                    c2 = true;
-                                    c3 = true;
-                                }
-                                if (king.Piece.isOnA(map.CaseList.IndexOf(king)))
-                                {
-                                    c1 = true;
-                                    c4 = true;
-                                    c6 = true;
-                                }
-                                if (king.Piece.isOnH(map.CaseList.IndexOf(king)))
-                                {
-                                    c3 = true;
-                                    c5 = true;
-                                    c8 = true;
-                                }
-                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 1 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 1), map.CaseList))
-                                    c5 = true;
-                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 1 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 1), map.CaseList))
-                                    c4 = true;
-                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 9 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 9), map.CaseList))
-                                    c1 = true;
-                                if (!king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 8 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 8), map.CaseList))
-                                    c2 = true;
-                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn8(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) - 7 >= 0 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) - 7), map.CaseList))
-                                    c3 = true;
-                                if (!king.Piece.isOnH(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 9 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 9), map.CaseList))
-                                    c8 = true;
-                                if (!king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 8 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 8), map.CaseList))
-                                    c7 = true;
-                                if (!king.Piece.isOnA(map.CaseList.IndexOf(king)) && !king.Piece.isOn1(map.CaseList.IndexOf(king)) && map.CaseList.IndexOf(king) + 7 < 64 && king.Piece.isInEchec(false, map.CaseList.ElementAt(map.CaseList.IndexOf(king) + 7), map.CaseList))
-                                    c6 = true;
-                                if (c1 && c2 && c3 && c4 && c5 && c6 && c7 && c8)
-                                {
-                                    gameOver(true);
-                                }
-                            }
-                        }
                     }
                     else
                     {
-                        if (map.getCase(mouseState.X, mouseState.Y, gameTurn) != null && map.getCase(mouseState.X, mouseState.Y, gameTurn).Piece != null)
+                        CheckEchec();
+                        if (map.GetCase(mouseState.X, mouseState.Y, gameTurn) != null && map.GetCase(mouseState.X, mouseState.Y, gameTurn).Piece != null)
                         {
-                            map.selectCase(mouseState.X, mouseState.Y);
+                            
+                            map.SelectCase(mouseState.X, mouseState.Y, whiteEchec, blackEchec);
                         }
                     }
 
@@ -393,7 +338,7 @@ namespace echecEtSharp
                 else if (keyboardState.IsKeyDown(Keys.Enter))
                 {
                     if(playAgain)
-                        resetGame();
+                        ResetGame();
                     else
                         Exit();                      
                 }
@@ -418,7 +363,7 @@ namespace echecEtSharp
             }
         }
 
-        private void drawMenu(SpriteBatch batch)
+        private void DrawMenu(SpriteBatch batch)
         {
 
             if(winner)
@@ -452,7 +397,7 @@ namespace echecEtSharp
             }
             else
             {
-                drawMenu(spriteBatch);
+                DrawMenu(spriteBatch);
             }
 
             spriteBatch.End();

@@ -20,12 +20,7 @@ namespace echecEtSharp
             {1,0,1,0,1,0,1,0},
         };
 
-        private List<Case> caseList;
-
-        public List<Case> CaseList
-        {
-            get { return caseList; }
-        }
+        public List<Case> CaseList { get; private set; }
 
         private List<Texture2D> tileTextures;
         private SpriteFont font;
@@ -35,10 +30,10 @@ namespace echecEtSharp
         {
             this.tileTextures = new List<Texture2D>();
             this.alpha = new List<String>() { "a", "b", "c", "d", "e", "f", "g", "h" };
-            this.caseList = new List<Case>();
+            this.CaseList = new List<Case>();
         }
 
-        public void generateMap()
+        public void GenerateMap()
         {
             int columnNum = 8;
 
@@ -48,7 +43,7 @@ namespace echecEtSharp
                 {                 
                     Case newCase = new Case(tileTextures[mapArray[y, x]], tileTextures[2], tileTextures[3], 50 + y * 50, 50 + x * 50, 50, 50, alpha.ElementAt(x), columnNum.ToString());
                     newCase.RockTexture = tileTextures[4];
-                    caseList.Add(newCase);
+                    CaseList.Add(newCase);
                     columnNum--;
                 }
             }
@@ -73,14 +68,14 @@ namespace echecEtSharp
             get { return mapArray.GetLength(0); }
         }
 
-        public int getIndex(String c, int i)
+        public int GetIndex(String c, int i)
         {
             return mapArray[alpha.IndexOf(c), i];
         }
 
-        public bool isOverACase(int x, int y)
+        public bool IsOverACase(int x, int y)
         {
-            foreach (Case c in caseList)
+            foreach (Case c in CaseList)
             {
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
@@ -90,27 +85,27 @@ namespace echecEtSharp
             return false;
         }
 
-        public void unSelectCase()
+        public void UnSelectCase()
         {
-            Case sc = getSelectedCase();
+            Case sc = GetSelectedCase();
             sc.SelectedCase = false;         
         }
 
-        public void selectCase(int x, int y)
+        public void SelectCase(int x, int y, bool whiteEchec, bool blackEchec)
         {
-            foreach (Case c in caseList)
+            foreach (Case c in CaseList)
             {
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
                     c.SelectedCase = true;
-                    c.Piece.defineAvailableCases(c, caseList);
+                    c.Piece.DefineAvailableCases(c, CaseList, whiteEchec, blackEchec, true);
                 }
             }
         }
 
-        public Case getCase(int x, int y)
+        public Case GetCase(int x, int y)
         {
-            foreach (Case c in caseList)
+            foreach (Case c in CaseList)
             {
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
@@ -120,9 +115,9 @@ namespace echecEtSharp
             return null;
         }
 
-        public Case getCase(int x, int y, bool gameTurn)
+        public Case GetCase(int x, int y, bool gameTurn)
         {
-            foreach (Case c in caseList)
+            foreach (Case c in CaseList)
             {
                 if (x > c.CaseRectangle.X && x < c.CaseRectangle.X + c.CaseRectangle.Width && y > c.CaseRectangle.Y && y < c.CaseRectangle.Y + c.CaseRectangle.Height)
                 {
@@ -139,9 +134,9 @@ namespace echecEtSharp
             return null;
         }
 
-        public Case getSelectedCase()
+        public Case GetSelectedCase()
         {
-            foreach (Case c in caseList)
+            foreach (Case c in CaseList)
             {
                 if (c.SelectedCase.Equals(true))
                 {
@@ -155,7 +150,7 @@ namespace echecEtSharp
 
         public void DrawCases(SpriteBatch batch)
         {
-            foreach (Case c in caseList)
+            foreach (Case c in CaseList)
             {
                 c.Draw(batch);
             }
@@ -164,7 +159,6 @@ namespace echecEtSharp
         public void DrawCoordinates(SpriteBatch batch)
         {
             int columnNum = 8;
-            int rowLetter = 0;
             int columnNumPositionLeftY = 70;
 
             for (int x = 0; x < 8; x++)
@@ -179,16 +173,9 @@ namespace echecEtSharp
             {
                 batch.DrawString(font, alpha.ElementAt(x), new Vector2(70 + x * 50, 20 + 9 * 50), Color.Black);
                 batch.DrawString(font, alpha.ElementAt(x), new Vector2(70 + x * 50, 20), Color.Black);
-                rowLetter++;
             }
         }
 
-        public static Case getKingOriginCase(Boolean white)
-        {
-            return null;
-        }
-
-        // public 
         public void Draw(SpriteBatch batch)
         {
             DrawCoordinates(batch);

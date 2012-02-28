@@ -6,88 +6,120 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace echecEtSharp
 {
-    internal class Piece
+    public class Piece
     {
-        public Boolean isKing { get; set; }
-        protected Vector2 position;
-        protected Texture2D texture;
-        protected int numberOfMouvs;
+        public int NumberOfMoves { get; set; }
         public Boolean IsWhite { get; set; }
-        public List<Case> AvailableCases { get; set; }
+        public List<Case> AvailableCases { get; private set; }
+        public Texture2D Texture { get; set; }
 
 
-        public Texture2D Texture
+        public Piece(Texture2D tex, Boolean isWhite)
         {
-            get { return texture; }
+            Texture = tex;
+            IsWhite = isWhite;
+            AvailableCases = new List<Case>();
+            NumberOfMoves = 0;
         }
 
-        public int NumberOfMouvs
+        public void SameColorEchec(Case currentCase, List<Case> mapCases, bool whiteEchec, bool blackEchec)
         {
-            get { return numberOfMouvs; }
-            set { numberOfMouvs = value; }
+            List<Case> casesToDelete = new List<Case>();
 
-        }
-
-
-        public Piece(Texture2D tex, Boolean isWhite, Boolean canJump)
-        {
-            this.texture = tex;
-            this.IsWhite = isWhite;
-            this.AvailableCases = new List<Case>();
-            this.numberOfMouvs = 0;
-        }
-
-        public bool isInEchec(Boolean white, Case c, List<Case> map)
-        {
-            var echecCases = new List<Case>();
-            var tempEchecCases = new List<Case>();
-
-            if (white)
+            foreach (Case ac in AvailableCases)
             {
-                tempEchecCases = (from cCase in map
-                                  where cCase.Piece != null &&
-                                        !cCase.Piece.IsWhite
-                                  select cCase).ToList();
+                Piece tempPiece = this;
+
+                Piece backupA = null;
+                if (ac.Piece != null)
+                    backupA = ac.Piece;
+
+                ac.Piece = this;
+                currentCase.Piece = null;
+
+                foreach (Case c1 in mapCases)
+                {
+                    if (c1.Piece != null && c1.Piece.IsWhite == !IsWhite)
+                    {
+                        c1.Piece.DefineAvailableCases(c1, mapCases, whiteEchec, blackEchec, false);
+
+                        casesToDelete = (from c2 in c1.Piece.AvailableCases
+                                         where
+                                             c2.Piece != null && c2.Piece.IsWhite == IsWhite && c2.Piece is Pieces.King
+                                         select c2).ToList();
+                        /*foreach (Case c2 in c1.Piece.AvailableCases)
+                        {
+                            if (c2.Piece != null && c2.Piece.IsWhite == IsWhite && c2.Piece is Pieces.King)
+                            {
+                                casesToDelete.Add(ac);
+                            }
+                        }*/
+                        c1.Piece.UndefineAvailableCases();
+                    }
+                }
+
+                ac.Piece = backupA;
+                currentCase.Piece = this;
+            }
+
+            foreach (Case cd in casesToDelete)
+            {
+                if (AvailableCases.Contains(cd))
+                {
+                    cd.AvailableCase = false;
+                    AvailableCases.Remove(cd);
+                }
+            }
+        }
+
+        public void DifferentColorEchec()
+        {
+            for (int i = 0; i < AvailableCases.Count; i++)
+            {
+                if (AvailableCases.ElementAt(i).Piece is Pieces.King)
+                {
+                    AvailableCases.ElementAt(i).AvailableCase = false;
+                    AvailableCases.Remove(AvailableCases.ElementAt(i));
+                }
+            }             
+        }
+
+        public void MoveOnlyIfNotEchec(Case currentCase, List<Case> mapCases, bool whiteEchec, bool blackEchec)
+        {
+            if(currentCase.Piece.IsWhite)
+            {
+                if (whiteEchec)
+                {
+                    SameColorEchec(currentCase, mapCases, true, blackEchec);
+                }
+
+                if(blackEchec)
+                {
+                    DifferentColorEchec();
+                }
             }
             else
             {
-                tempEchecCases = (from cCase in map
-                                  where cCase.Piece != null &&
-                                        cCase.Piece.IsWhite
-                                  select cCase).ToList();
-            }
-
-            foreach (Case cases in tempEchecCases)
-            {
-                List<Case> u = cases.Piece.defineEchecCases(white, c, cases, map);
-                foreach (Case a in u)
+                if (blackEchec)
                 {
-                    echecCases.Add(a);
+                    SameColorEchec(currentCase, mapCases, whiteEchec, true);
+                }
+
+                if (whiteEchec)
+                {
+                    DifferentColorEchec();
                 }
             }
-
-            if (echecCases.Contains(c))
-            {
-                return true;
-            }
-            return false;
         }
 
-        public virtual void defineAvailableCases(Case c, List<Case> map)
-        {
-        }
 
-        public virtual List<Case> defineEchecCases(Boolean white, Case king, Case c, List<Case> map)
-        {
-            return new List<Case>();
-        }
+        public virtual void DefineAvailableCases(Case c, List<Case> map, bool whiteEchec, bool blackEchec, bool firstEntry)
+        {}
 
-        public virtual void undefineAvailableCases()
-        {
+        public virtual void UndefineAvailableCases()
+        {}
 
-        }
-
-        public bool isOnA(int index)
+        public bool IsOnA(int index)
         {
             int j = 1;
             for (int i = 0; i < 8; i++)
@@ -101,7 +133,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool isOnB(int index)
+        public bool IsOnB(int index)
         {
             int j = 2;
             for (int i = 0; i < 8; i++)
@@ -115,7 +147,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool isOnG(int index)
+        public bool IsOnG(int index)
         {
             int j = 7;
             for (int i = 0; i < 8; i++)
@@ -129,7 +161,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool isOnH(int index)
+        public bool IsOnH(int index)
         {
             int j = 8;
             for (int i = 0; i < 8; i++)
@@ -143,7 +175,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool isOn8(int index)
+        public bool IsOn8(int index)
         {
             if (index < 8)
             {
@@ -152,7 +184,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool isOn1(int index)
+        public bool IsOn1(int index)
         {
             if (index > 55)
             {
@@ -161,7 +193,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool isOn6(int index)
+        public bool IsOn6(int index)
         {
             if (index >= 8 && index < 16)
             {
@@ -170,7 +202,7 @@ namespace echecEtSharp
             return false;
         }
 
-        public bool isOn2(int index)
+        public bool IsOn2(int index)
         {
             if (index <= 55 && index > 47)
             {
@@ -179,14 +211,14 @@ namespace echecEtSharp
             return false;
         }
 
-        public virtual void Update(GameTime gameTime)
+        public bool isInEchec(Boolean white, Case c, List<Case> mapCases)
         {
-
+            return false;
         }
 
         public void Draw(SpriteBatch batch, Rectangle rec)
         {
-            batch.Draw(texture, rec, Color.White);
+            batch.Draw(Texture, rec, Color.White);
         }
     }
 }
