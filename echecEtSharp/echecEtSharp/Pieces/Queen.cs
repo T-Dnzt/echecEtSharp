@@ -26,302 +26,110 @@ namespace echecEtSharp.Pieces
         public override void DefineAvailableCases(Case c, List<Case> map, bool whiteEchec, bool blackEchec,
                                                   bool firstEntry)
         {
-            for (int i = 0; i < 8; i++)
+
+
+            Boolean choc = false;
+            for (int i = map.IndexOf(c) - 7; i >= 0; i -= 7)
             {
-                Case tempC;
-                if ((i == 0) && map.IndexOf(c) - 8 >= 0)
+                if (authorizedMvm(c, i, map, false, true, true, false, false, false) && !choc)
                 {
-                    tempC = map.ElementAt(map.IndexOf(c) - 8);
-                    if (IsWhite)
-                    {
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 8) >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 8);
-                            }
-                            else
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 8) >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 8);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
                 }
-
-                if ((i == 1) && map.IndexOf(c) + 8 < 64)
+                if (map.ElementAt(i).Piece != null)
                 {
-                    tempC = map.ElementAt(map.IndexOf(c) + 8);
-                    if (IsWhite)
-                    {
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 8) < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 8);
-                            }
-                            else
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 8) < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 8);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    choc = true;
                 }
-
-                if ((i == 2) && !IsOnA(map.IndexOf(c)))
+            }
+            choc = false;
+            for (int i = map.IndexOf(c) + 7; i < 64; i += 7)
+            {
+                if (authorizedMvm(c, i, map, true, false, true, false, false, false) && !choc)
                 {
-                    tempC = map.ElementAt(map.IndexOf(c) - 1);
-                    if (IsWhite)
-                    {
-                        while (!IsOnA(map.IndexOf(tempC) + 1) && (tempC.Piece == null || !tempC.Piece.IsWhite))
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if (map.IndexOf(tempC) - 1 >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 1);
-                            }
-                            else
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        while (!IsOnA(map.IndexOf(tempC) + 1) && (tempC.Piece == null || tempC.Piece.IsWhite))
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if (map.IndexOf(tempC) - 1 >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 1);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
                 }
-
-                if ((i == 3) && !IsOnH(map.IndexOf(c)))
+                if (map.ElementAt(i).Piece != null)
                 {
-                    tempC = map.ElementAt(map.IndexOf(c) + 1);
-                    if (IsWhite)
-                    {
-                        while (!IsOnH(map.IndexOf(tempC) - 1) && (tempC.Piece == null || !tempC.Piece.IsWhite))
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if (map.IndexOf(tempC) + 1 < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 1);
-                            }
-                            else
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        while (!IsOnH(map.IndexOf(tempC) - 1) && (tempC.Piece == null || tempC.Piece.IsWhite))
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if (map.IndexOf(tempC) + 1 < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 1);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    choc = true;
                 }
-
-                if (IsWhite)
+            }
+            choc = false;
+            for (int i = map.IndexOf(c) + 9; i < 64; i += 9)
+            {
+                if (authorizedMvm(c, i, map, false, true, true, false, false, false) && !choc)
                 {
-                    if ((i == 4) && !IsOnH(map.IndexOf(c)) && !IsOn8(map.IndexOf(c)) && map.IndexOf(c) - 7 >= 0)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) - 7);
-
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 7) >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
-                                !IsOnH(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 7);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
                 }
-                else
+                if (map.ElementAt(i).Piece != null)
                 {
-                    if ((i == 4) && !IsOnH(map.IndexOf(c)) && !IsOn8(map.IndexOf(c)) && map.IndexOf(c) - 7 >= 0)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) - 7);
-
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 7) >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
-                                !IsOnH(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 7);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    choc = true;
                 }
-
-
-                if (IsWhite)
+            }
+            choc = false;
+            for (int i = map.IndexOf(c) - 9; i >= 0; i -= 9)
+            {
+                if (authorizedMvm(c, i, map, true, false, true, false, false, false) && !choc)
                 {
-                    if ((i == 5) && !IsOnA(map.IndexOf(c)) && !IsOn1(map.IndexOf(c)) && map.IndexOf(c) + 7 < 64)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) + 7);
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 7) < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
-                                !IsOnA(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 7);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
                 }
-                else
+                if (map.ElementAt(i).Piece != null)
                 {
-                    if ((i == 5) && !IsOnA(map.IndexOf(c)) && !IsOn1(map.IndexOf(c)) && map.IndexOf(c) + 7 < 64)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) + 7);
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 7) < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
-                                !IsOnA(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 7);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    choc = true;
                 }
-
-
-                if (IsWhite)
+            }
+            choc = false;
+            for (int i = map.IndexOf(c) - 8; i >= 0; i -= 8)
+            {
+                if (authorizedMvm(c, i, map, false, false, true, false, false, true) && !choc)
                 {
-                    if ((i == 6) && !IsOnA(map.IndexOf(c)) && !IsOn8(map.IndexOf(c)) && map.IndexOf(c) - 9 >= 0)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) - 9);
-
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 9) >= 0 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
-                                !IsOnA(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 9);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
                 }
-                else
+                if (map.ElementAt(i).Piece != null)
                 {
-                    if ((i == 6) && !IsOnA(map.IndexOf(c)) && !IsOn8(map.IndexOf(c)) && map.IndexOf(c) - 9 >= 0)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) - 9);
-
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) - 9) >= 0 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
-                                !IsOnA(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) - 9);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    choc = true;
                 }
-
-
-                if (IsWhite)
+            }
+            choc = false;
+            for (int i = map.IndexOf(c) + 8; i < 64; i += 8)
+            {
+                if (authorizedMvm(c, i, map, false, false, true, false, false, true) && !choc)
                 {
-                    if ((i == 7) && !IsOnH(map.IndexOf(c)) && !IsOn1(map.IndexOf(c)) && map.IndexOf(c) + 9 < 64)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) + 9);
-                        while (tempC.Piece == null || !tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 9) < 64 && !(tempC.Piece != null && !tempC.Piece.IsWhite) &&
-                                !IsOnH(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 9);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
                 }
-                else
+                if (map.ElementAt(i).Piece != null)
                 {
-                    if ((i == 7) && !IsOnH(map.IndexOf(c)) && !IsOn1(map.IndexOf(c)) && map.IndexOf(c) + 9 < 64)
-                    {
-                        tempC = map.ElementAt(map.IndexOf(c) + 9);
-                        while (tempC.Piece == null || tempC.Piece.IsWhite)
-                        {
-                            tempC.AvailableCase = true;
-                            AvailableCases.Add(tempC);
-                            if ((map.IndexOf(tempC) + 9) < 64 && !(tempC.Piece != null && tempC.Piece.IsWhite) &&
-                                !IsOnH(map.IndexOf(tempC)))
-                            {
-                                tempC = map.ElementAt(map.IndexOf(tempC) + 9);
-                            }
-                            else
-                                break;
-                        }
-                    }
+                    choc = true;
+                }
+            }
+            choc = false;
+            for (int i = map.IndexOf(c) - 1; i >= 0; i -= 1)
+            {
+                if (authorizedMvm(c, i, map, true, false, true, false, true, false) && !choc)
+                {
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
+                }
+                if (map.ElementAt(i).Piece != null)
+                {
+                    choc = true;
+                }
+            }
+            choc = false;
+            for (int i = map.IndexOf(c) + 1; i < 64; i += 1)
+            {
+                if (authorizedMvm(c, i, map, false, true, true, false, true, false) && !choc)
+                {
+                    map.ElementAt(i).AvailableCase = true;
+                    AvailableCases.Add(map.ElementAt(i));
+                }
+                if (map.ElementAt(i).Piece != null)
+                {
+                    choc = true;
                 }
             }
 

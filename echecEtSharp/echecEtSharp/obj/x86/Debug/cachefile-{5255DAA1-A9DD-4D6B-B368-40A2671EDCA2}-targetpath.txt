@@ -15,6 +15,6 @@ Content\blackpawn.xnb
 Content\blackqueen.xnb
 Content\blackrook.xnb
 Content\red.xnb
-Content\Arial.xnb
 Content\black.xnb
 Content\green.xnb
+Content\Arial.xnb

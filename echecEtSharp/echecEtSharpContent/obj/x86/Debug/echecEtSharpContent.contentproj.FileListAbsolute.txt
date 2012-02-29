@@ -2,3 +2,4 @@ c:\users\thibault\documents\visual studio 2010\Projects\echecEtSharp\echecEtShar
 C:\Users\Thibault\Work\Ingésup\M1\echecEtSharp\echecEtSharp\echecEtSharpContent\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\proj\echecEtSharp\echecEtSharp\echecEtSharpContent\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\proj\c#\echecEtSharp\echecEtSharp\echecEtSharpContent\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\proj\c#\echecEtSharp2\echecEtSharp\echecEtSharp\echecEtSharpContent\obj\x86\Debug\ResolveAssemblyReference.cache
