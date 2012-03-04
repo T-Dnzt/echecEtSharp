@@ -68,6 +68,11 @@ namespace echecEtSharp
                     AvailableCases.Remove(cd);
                 }
             }
+
+            foreach(Case cd in AvailableCases)
+            {
+                cd.AvailableCase = true;
+            }
         }
 
         public void DifferentColorEchec()
@@ -86,10 +91,8 @@ namespace echecEtSharp
         {
             if (currentCase.Piece.IsWhite)
             {
-                if (whiteEchec)
-                {
                     SameColorEchec(currentCase, mapCases, true, blackEchec);
-                }
+                
 
                 if (blackEchec)
                 {
@@ -98,10 +101,8 @@ namespace echecEtSharp
             }
             else
             {
-                if (blackEchec)
-                {
                     SameColorEchec(currentCase, mapCases, whiteEchec, true);
-                }
+                
 
                 if (whiteEchec)
                 {

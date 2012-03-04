@@ -144,21 +144,22 @@ namespace echecEtSharp
 
         }
 
-        private void CheckMate()
-        {
-  
-        }
-
         private void CheckEchec()
         {
             bool tempWhiteEchec = false;
             bool tempBlackEchec = false;
+            bool checkMate = true;
 
-            foreach(Case c1 in map.CaseList)
+
+            foreach (Case c1 in map.CaseList)
             {
-                if(c1.Piece != null)
-                {                  
-                    c1.Piece.DefineAvailableCases(c1, map.CaseList, whiteEchec, blackEchec, false);
+                if (c1.Piece != null)
+                {
+                    c1.Piece.DefineAvailableCases(c1, map.CaseList, whiteEchec, blackEchec, true);
+
+                    if (gameTurn == !c1.Piece.IsWhite && c1.Piece.AvailableCases.Count > 0)
+                        checkMate = false;
+
                     foreach (Case c2 in c1.Piece.AvailableCases)
                     {
                         if (!c1.Piece.IsWhite && c2.Piece != null && c2.Piece.IsWhite && c2.Piece is King)
@@ -169,23 +170,17 @@ namespace echecEtSharp
                         if (c1.Piece.IsWhite && c2.Piece != null && !c2.Piece.IsWhite && c2.Piece is King)
                         {
                             tempBlackEchec = true;
-                            break;
                         }
-
                     }
                     c1.Piece.UndefineAvailableCases();
                 }
             }
 
-            if (tempWhiteEchec)
-                whiteEchec = true;
-            else
-                whiteEchec = false;
+            whiteEchec = tempWhiteEchec;
+            blackEchec = tempBlackEchec;
 
-            if (tempBlackEchec)
-                blackEchec = true;
-            else
-                blackEchec = false;
+            if (checkMate)
+                GameOver(gameTurn);
         }
 
         protected override void Update(GameTime gameTime)
@@ -238,6 +233,7 @@ namespace echecEtSharp
 
                             selectedC.Piece = null;
                             map.UnSelectCase();
+                            CheckEchec();
                             gameTurn = !gameTurn;
                         }
                         else if (clickedCase.IsBigRockPossible)
@@ -253,6 +249,7 @@ namespace echecEtSharp
                                 map.CaseList.ElementAt(58).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(60).Piece = null;
                                 map.UnSelectCase();
+                                CheckEchec();
                                 gameTurn = !gameTurn;
                             }
                             else
@@ -266,6 +263,7 @@ namespace echecEtSharp
                                 map.CaseList.ElementAt(2).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(4).Piece = null;
                                 map.UnSelectCase();
+                                CheckEchec();
                                 gameTurn = !gameTurn;
                             }
                         }
@@ -282,6 +280,7 @@ namespace echecEtSharp
                                 map.CaseList.ElementAt(62).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(60).Piece = null;
                                 map.UnSelectCase();
+                                CheckEchec();
                                 gameTurn = !gameTurn;
                             }
                             else
@@ -295,6 +294,7 @@ namespace echecEtSharp
                                 map.CaseList.ElementAt(6).Piece.NumberOfMoves += 1;
                                 map.CaseList.ElementAt(4).Piece = null;
                                 map.UnSelectCase();
+                                CheckEchec();
                                 gameTurn = !gameTurn;
                             }
                         }
@@ -312,7 +312,6 @@ namespace echecEtSharp
                     }
                     else
                     {
-                        CheckEchec();
                         if (map.GetCase(mouseState.X, mouseState.Y, gameTurn) != null && map.GetCase(mouseState.X, mouseState.Y, gameTurn).Piece != null)
                         {
                             
@@ -365,21 +364,20 @@ namespace echecEtSharp
 
         private void DrawMenu(SpriteBatch batch)
         {
-
-            if(winner)
-                batch.DrawString(font, "White wins ! ", new Vector2(215, 200), Color.Black);
+            if (winner)
+                batch.DrawString(font, "Check Mate - White wins ! ", new Vector2(180, 510), Color.Black);
             else
-                batch.DrawString(font, "Black wins ! ", new Vector2(215, 200), Color.Black);
+                batch.DrawString(font, "Check Mate - Black wins ! ", new Vector2(180, 510), Color.Black);
 
             if (playAgain)
             {
-                batch.DrawString(font, "Play again", new Vector2(220, 280), Color.Gray);
-                batch.DrawString(font, "Quit", new Vector2(238, 300), Color.Black);
+                batch.DrawString(font, "Play again", new Vector2(220, 540), Color.Gray);
+                batch.DrawString(font, "Quit", new Vector2(238, 560), Color.Black);
             }
             else
             {
-                batch.DrawString(font, "Play again", new Vector2(220, 280), Color.Black);
-                batch.DrawString(font, "Quit", new Vector2(238, 300), Color.Gray);
+                batch.DrawString(font, "Play again", new Vector2(220, 540), Color.Black);
+                batch.DrawString(font, "Quit", new Vector2(238, 560), Color.Gray);
             }
         }
 
@@ -388,7 +386,7 @@ namespace echecEtSharp
             GraphicsDevice.Clear(Color.WhiteSmoke);
 
             spriteBatch.Begin();
-           
+
 
             if (gamePlaying)
             {
@@ -397,6 +395,7 @@ namespace echecEtSharp
             }
             else
             {
+                map.Draw(spriteBatch);
                 DrawMenu(spriteBatch);
             }
 
